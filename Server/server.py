@@ -13,10 +13,23 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-def addtolist(cur,a):
+def addtolist(cur,result,queryType):
+	mydict = {}
 	for i in cur:
-		a.append(i)
-
+		if(queryType==1 or queryType==2 or queryType==3):
+			mydict["name"] = i[0]
+			mydict["type"] = i[1]
+			result.append(mydict)
+		elif(queryType==4 or queryType==5):
+			mydict["name"] = i[0]
+			mydict["type"] = i[1]
+			mydict["artist"] = i[2]
+			result.append(mydict)
+		elif(queryType==6):
+			mydict["name"] = i[0]
+			mydict["type"] = i[1]
+			mydict["owner"] = i[2]
+			result.append(mydict)
 
 a=[]
 @app.route("/search")
@@ -25,7 +38,7 @@ def search():
 	name = request.args.get("name")
 	query = "select username,'user' as source from user where username like '%" + str(name) +  "%'"
 	cursor.execute(query)
-	addtolist(cursor, a)
+	addtolist(cursor, a, 1)
 	'''
 	query =f"select username,'listener' as source from listener where firstname like "%{name}%" or lastname like "%{name}%""
 	cursor.execute(query)
