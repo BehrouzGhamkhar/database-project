@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: dbproject
+-- Host: localhost    Database: database_project
 -- ------------------------------------------------------
 -- Server version	8.0.17
 
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `addsong`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `addsong` (
   `dateadded` date DEFAULT NULL,
   `playlisttitle` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -42,6 +42,7 @@ CREATE TABLE `addsong` (
 
 LOCK TABLES `addsong` WRITE;
 /*!40000 ALTER TABLE `addsong` DISABLE KEYS */;
+INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali'),('2001-05-02','myplaylist','behrouz','gun','evolve','ali');
 /*!40000 ALTER TABLE `addsong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +52,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `adduser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `adduser` (
   `username` varchar(20) DEFAULT NULL,
   `playlisttitle` varchar(20) DEFAULT NULL,
@@ -60,7 +61,7 @@ CREATE TABLE `adduser` (
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
   CONSTRAINT `adduser_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   CONSTRAINT `adduser_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +79,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `album`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `album` (
   `title` varchar(20) NOT NULL,
   `artist` varchar(20) NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE `album` (
   PRIMARY KEY (`title`,`artist`),
   KEY `artist` (`artist`),
   CONSTRAINT `album_ibfk_1` FOREIGN KEY (`artist`) REFERENCES `artist` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +97,7 @@ CREATE TABLE `album` (
 
 LOCK TABLES `album` WRITE;
 /*!40000 ALTER TABLE `album` DISABLE KEYS */;
+INSERT INTO `album` VALUES ('evolve','ali','pop-rock','2001-05-02');
 /*!40000 ALTER TABLE `album` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +107,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `artist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `artist` (
   `username` varchar(20) DEFAULT NULL,
   `artisticname` varchar(10) DEFAULT NULL,
@@ -113,7 +115,7 @@ CREATE TABLE `artist` (
   `isapproved` int(11) DEFAULT NULL,
   KEY `username` (`username`),
   CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +124,7 @@ CREATE TABLE `artist` (
 
 LOCK TABLES `artist` WRITE;
 /*!40000 ALTER TABLE `artist` DISABLE KEYS */;
+INSERT INTO `artist` VALUES ('behrouz','yegane',1996,1),('ali','dragons',1900,1);
 /*!40000 ALTER TABLE `artist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +134,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `creditcard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `creditcard` (
   `number` int(11) NOT NULL,
   `expdate` date DEFAULT NULL,
@@ -139,7 +142,7 @@ CREATE TABLE `creditcard` (
   PRIMARY KEY (`number`),
   KEY `username` (`username`),
   CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +160,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `follow`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `follow` (
   `follower` varchar(20) DEFAULT NULL,
   `following` varchar(20) DEFAULT NULL,
@@ -165,7 +168,7 @@ CREATE TABLE `follow` (
   KEY `following` (`following`),
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower`) REFERENCES `user` (`username`),
   CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`following`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,6 +177,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
+INSERT INTO `follow` VALUES ('ali','reza'),('ali','behrouz'),('reza','behrouz'),('reza','ali'),('behrouz','ali'),('behrouz','reza'),('ali','ahmad'),('reza','ahmad');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +187,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `likeplaylist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `likeplaylist` (
   `username` varchar(20) DEFAULT NULL,
   `playlisttitle` varchar(20) DEFAULT NULL,
@@ -192,7 +196,7 @@ CREATE TABLE `likeplaylist` (
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
   CONSTRAINT `likeplaylist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   CONSTRAINT `likeplaylist_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +214,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `likesong`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `likesong` (
   `username` varchar(20) DEFAULT NULL,
   `songtitle` varchar(20) DEFAULT NULL,
@@ -220,7 +224,7 @@ CREATE TABLE `likesong` (
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
   CONSTRAINT `likesong_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   CONSTRAINT `likesong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +242,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `listener`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `listener` (
   `username` varchar(20) DEFAULT NULL,
   `firstname` varchar(15) DEFAULT NULL,
@@ -246,7 +250,7 @@ CREATE TABLE `listener` (
   `yearofbirth` int(11) DEFAULT NULL,
   KEY `username` (`username`),
   CONSTRAINT `listener_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +268,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `play`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `play` (
   `username` varchar(20) DEFAULT NULL,
   `dateplayed` date DEFAULT NULL,
@@ -275,7 +279,7 @@ CREATE TABLE `play` (
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
   CONSTRAINT `play_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
   CONSTRAINT `play_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,14 +297,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `playlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `playlist` (
   `title` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL,
   PRIMARY KEY (`title`,`username`),
   KEY `username` (`username`),
   CONSTRAINT `playlist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,6 +313,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
+INSERT INTO `playlist` VALUES ('myplaylist','behrouz');
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +323,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `premium`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `premium` (
   `duration` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -326,7 +331,7 @@ CREATE TABLE `premium` (
   PRIMARY KEY (`duration`,`username`),
   KEY `username` (`username`),
   CONSTRAINT `premium_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,7 +349,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `report` (
   `songtitle` varchar(20) DEFAULT NULL,
   `albumtitle` varchar(20) DEFAULT NULL,
@@ -354,7 +359,7 @@ CREATE TABLE `report` (
   KEY `username` (`username`),
   CONSTRAINT `report_ibfk_1` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`),
   CONSTRAINT `report_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,7 +377,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `song`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `song` (
   `title` varchar(20) NOT NULL,
   `albumtitle` varchar(20) NOT NULL,
@@ -381,7 +386,7 @@ CREATE TABLE `song` (
   PRIMARY KEY (`title`,`albumtitle`,`artist`),
   KEY `albumtitle` (`albumtitle`,`artist`),
   CONSTRAINT `song_ibfk_1` FOREIGN KEY (`albumtitle`, `artist`) REFERENCES `album` (`title`, `artist`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,6 +395,7 @@ CREATE TABLE `song` (
 
 LOCK TABLES `song` WRITE;
 /*!40000 ALTER TABLE `song` DISABLE KEYS */;
+INSERT INTO `song` VALUES ('bliever','evolve','ali',204),('gun','evolve','ali',204),('guns','evolve','ali',224);
 /*!40000 ALTER TABLE `song` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +405,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `email` varchar(20) DEFAULT NULL,
@@ -409,7 +415,7 @@ CREATE TABLE `user` (
   `personalanswer` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,6 +424,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq'),('ali','a@gmail.com','iran','123','que','ans'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ'),('reza','r@gmail','zimbabwe','12','qw','ssw');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -430,4 +437,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-10 18:40:12
+-- Dump completed on 2020-07-11  3:57:18
