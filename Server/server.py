@@ -85,6 +85,7 @@ def addtolist3(cur,a):
 		mydict["username"] = i[0]
 		a.append(mydict)
 
+
 @app.route("/follower")
 def follower():
 	a=[]
@@ -106,6 +107,45 @@ def following():
 	return jsonObj
 
 
+def addtolist4(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["length"] = i[0]
+		mydict["artist"] = i[1]
+		mydict["title"] = i[2]
+		a.append(mydict)
+
+
+@app.route("/albumsongs")
+def albumsongs():
+	a=[]
+	title = request.args.get("title")
+	query = "select length,artist,title from song where albumtitle ='"+str(title)+"';"
+	cursor.execute(query)
+	addtolist4(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
+
+def addtolist5(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["length"] = i[0]
+		mydict["artist"] = i[1]
+		mydict["title"] = i[2]
+		mydict["date_added"] = str(i[3])
+		mydict["album"] = i[4]
+		a.append(mydict)
+
+@app.route("/playlistsongs")
+def playlistsongs():
+	a=[]
+	title = request.args.get("title")
+	query = "select length,addsong.artist,songtitle,dateadded,addsong.albumtitle from addsong inner join song on addsong.songtitle = song.title where  playlisttitle ='"+str(title)+"';"
+	cursor.execute(query)
+	addtolist5(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
 
 
 
