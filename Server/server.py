@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -147,8 +147,23 @@ def playlistsongs():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def addtolist6(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['title'] = i[0]
+		mydict['artist'] = i[1]
+		mydict['listener'] = i[2]
+		a.append(mydict)
 
-
+@app.route("/followingfeed")
+def followingfeed():
+	a=[]
+	username = request.args.get("username")
+	query = "select songtitle, artist, following from follow inner join play on follow.following = play.username where follow.follower = '" + str(username) + "' and play.dateplayed = (select max(dateplayed) from follow inner join play on follow.following = play.username where follow.follower = '" + str(username) + "');"
+	cursor.execute(query)
+	addtolist6(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
