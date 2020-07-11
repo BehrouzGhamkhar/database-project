@@ -13,6 +13,26 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+def spec1(cur,a):
+	for i in cur:
+		return str(i[1])
+
+def mainArtistGenre(username):
+	a = []
+	query = "select artist, genre, count(genre) from album where artist = '" + username +"' group by artist, genre order by count(genre) desc limit 1;"
+	cursor.execute(query)
+	return spec1(cursor,a)
+
+def spec2(cur,a):
+	for i in cur:
+		return str(i[2])
+
+def mainPlaylistGenre(playlist,owner):
+	a = []
+	query = "select playlisttitle, playlistowner, genre, count(genre) from addsong inner join album on addsong.albumtitle = album.title where playlisttitle = '" + playlist + "' and playlistowner = '" + owner + "' group by playlisttitle,playlistowner,genre order by count(genre) desc limit 1;"
+	cursor.execute(query)
+	return spec2(cursor, a)
+
 def addtolist1(cur,result,queryType):
 	for i in cur:
 		if(queryType==1 or queryType==2 or queryType==3):
@@ -163,6 +183,26 @@ def followingfeed():
 	query = "select songtitle, artist, temp.username, temp.mdate from play inner join(select username, max(dateplayed) as mdate from play where username in (select following from follow where follower = '" + str(username) + "') group by username order by max(dateplayed) desc) as temp on play.username = temp.username and play.dateplayed = temp.mdate;"
 	cursor.execute(query)
 	addtolist6(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
+def addtolist11(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['title'] = i[0]
+		mydict['artist'] = i[1]
+		mydict['genre'] = i[2]
+		a.append(mydict)
+
+@app.route("/recommendbyplaylist")
+def recommendbyplaylist():
+	a = []
+	name = request.args.get("name")
+	owner = request.args.get("owner")
+	maingenre = mainPlaylistGenre(name, owner)
+	query = "select song.title, song.artist, genre from song inner join album on song.albumtitle = album.title where genre = '" + maingenre + "' and (song.title not in (select songtitle from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "') or song.artist not in (select artist from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "')) order by RAND() limit 2;"
+	cursor.execute(query)
+	addtolist11(cursor, a)
 	jsonObj = json.dumps(a)
 	return jsonObj
 
