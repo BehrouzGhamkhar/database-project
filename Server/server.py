@@ -181,6 +181,22 @@ def suggestnational():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def addtolist14(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['artist'] = i[0]
+		mydict['number of songs'] = i[1]
+		a.append(mydict)
+
+@app.route("/artistbyactivity")
+def artistbyactivity():
+	a = []
+	query = "select artist, count(title) from song group by artist order by count(title) desc;"
+	cursor.execute(query)
+	addtolist14(cursor,a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
 
