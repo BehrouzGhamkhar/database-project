@@ -202,19 +202,20 @@ def addtolist15(cur,a):
 	for i in cur:
 		mydict = {}
 		mydict['artist'] = i[0]
-		mydict['songs per day'] = float(i[1])
+		mydict['total songs'] = i[1]
+		mydict['debut release date'] = str(i[2])
+		mydict['activity'] = str(i[3])
 		a.append(mydict)
-#15
-'''
-@app.route("/lazyartist")
+
+@app.route("/lazyartists")
 def lazyartist():
 	a = []
-	query = "select username,  from artist where 
+	query = "select tempsong.artist, tempsong.titlecount, tempalbum.minreleasedate, tempsong.titlecount/datediff(curdate(),tempalbum.minreleasedate) as activity from (select artist, min(releasedate) as minreleasedate from album group by artist) as tempalbum inner join (select artist, count(title) as titlecount from song group by artist) as tempsong on tempsong.artist = tempalbum.artist where titlecount/datediff(curdate(),minreleasedate)<=0.03;"
 	cursor.execute(query)
 	addtolist15(cursor,a)
 	jsonObj = json.dumps(a)
 	return jsonObj
-'''
+
 
 
 
