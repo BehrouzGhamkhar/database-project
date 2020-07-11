@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -153,13 +153,14 @@ def addtolist6(cur,a):
 		mydict['title'] = i[0]
 		mydict['artist'] = i[1]
 		mydict['listener'] = i[2]
+		mydict['date played'] = str(i[3])
 		a.append(mydict)
 
 @app.route("/followingfeed")
 def followingfeed():
 	a=[]
 	username = request.args.get("username")
-	query = "select songtitle, artist, following from follow inner join play on follow.following = play.username where follow.follower = '" + str(username) + "' and play.dateplayed = (select max(dateplayed) from follow inner join play on follow.following = play.username where follow.follower = '" + str(username) + "');"
+	query = "select songtitle, artist, temp.username, temp.mdate from play inner join(select username, max(dateplayed) as mdate from play where username in (select following from follow where follower = '" + str(username) + "') group by username order by max(dateplayed) desc) as temp on play.username = temp.username and play.dateplayed = temp.mdate;"
 	cursor.execute(query)
 	addtolist6(cursor, a)
 	jsonObj = json.dumps(a)
@@ -204,15 +205,16 @@ def addtolist15(cur,a):
 		mydict['songs per day'] = float(i[1])
 		a.append(mydict)
 #15
+'''
 @app.route("/lazyartist")
 def lazyartist():
 	a = []
-	query = "select username, count(song.title)/((2020-debutyear)*365) as result from artist inner join song on artist.username = song.artist  group by artist order by result asc;"
+	query = "select username,  from artist where 
 	cursor.execute(query)
 	addtolist15(cursor,a)
 	jsonObj = json.dumps(a)
 	return jsonObj
-
+'''
 
 
 
