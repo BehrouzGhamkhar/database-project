@@ -165,6 +165,22 @@ def followingfeed():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def addtolist13(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['artist'] = i[0]
+		a.append(mydict)
+
+@app.route("/suggestnational")
+def suggestnational():
+	a = []
+	username = request.args.get("username")
+	query = "select artist.username from artist inner join user on artist.username = user.username where nationality = (select nationality from user where username = '" + str(username) + "');"
+	cursor.execute(query)
+	addtolist13(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
 
