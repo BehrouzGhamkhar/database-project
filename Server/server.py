@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -32,6 +32,19 @@ def mainPlaylistGenre(playlist,owner):
 	query = "select playlisttitle, playlistowner, genre, count(genre) from addsong inner join album on addsong.albumtitle = album.title where playlisttitle = '" + playlist + "' and playlistowner = '" + owner + "' group by playlisttitle,playlistowner,genre order by count(genre) desc limit 1;"
 	cursor.execute(query)
 	return spec2(cursor, a)
+
+
+
+def spec3(cur,a):
+	for i in cur:
+		return str(i[0])
+
+def favartist(username):
+	a=[]
+	query ="select play.artist , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.username ='"+username+"' group by play.artist order by cnt desc limit 1;"
+	cursor.execute(query)
+	return spec3(cursor,a)
+
 
 def addtolist1(cur,result,queryType):
 	for i in cur:
@@ -185,6 +198,50 @@ def followingfeed():
 	addtolist6(cursor, a)
 	jsonObj = json.dumps(a)
 	return jsonObj
+
+
+#7
+'''
+def addtolist7(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['title'] = i[0]
+		mydict['artist'] = i[1]
+		a.append(mydict)
+
+
+@app.route("/")
+	a = []
+	query = "select song.title,song.artist from song inner join album where song.albumtitle = alb  "
+	cursor.execute(query)
+	addtolist9(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+'''
+
+def addtolist8(cur,a):
+	for i in cur:
+		a.append(i)
+
+#8 		
+@app.route("/suggestartist")
+def suggestartist():
+	a=[]
+	username = request.args.get("username")
+	#favoriteArtist = favartist(username)
+	maingenre = mainArtistGenre("ali")
+	query = "select username from artist;"
+	cursor.execute(query)
+	addtolist8(cursor, a)
+	mydict = {}
+	for i in a:
+		if(maingenre == mainArtistGenre(str(i))):
+			mydict['artist'] = i
+			break
+
+	jsonObj = json.dumps(mydict)
+	return jsonObj
+
 
 def addtolist9(cur,a):
 	for i in cur:
