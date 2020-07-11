@@ -186,6 +186,22 @@ def followingfeed():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def addtolist9(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['title'] = i[0]
+		mydict['times played'] = i[1]
+		a.append(mydict)
+
+@app.route("/hitsongsoftheweek")
+def hitsongsoftheweek():
+	a = []
+	query = "select songtitle, count(songtitle) from play where datediff(curdate(),dateplayed) <= 7 group by(songtitle) order by count(songtitle) desc limit 5;"
+	cursor.execute(query)
+	addtolist9(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
 def addtolist11(cur,a):
 	for i in cur:
 		mydict = {}
