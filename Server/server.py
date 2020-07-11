@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -196,6 +196,26 @@ def artistbyactivity():
 	addtolist14(cursor,a)
 	jsonObj = json.dumps(a)
 	return jsonObj
+
+def addtolist15(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['artist'] = i[0]
+		mydict['songs per day'] = float(i[1])
+		a.append(mydict)
+#15
+@app.route("/lazyartist")
+def lazyartist():
+	a = []
+	query = "select username, count(song.title)/((2020-debutyear)*365) as result from artist inner join song on artist.username = song.artist  group by artist order by result asc;"
+	cursor.execute(query)
+	addtolist15(cursor,a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
+
+
+
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
