@@ -13,13 +13,17 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
+@app.route("/debug")
+def debug():
+	return mainArtistGenre("ali")
+
 def spec1(cur,a):
 	for i in cur:
-		return str(i[1])
+		return str(i[0])
 
 def mainArtistGenre(username):
 	a = []
-	query = "select artist, genre, count(genre) from album where artist = '" + username +"' group by artist, genre order by count(genre) desc limit 1;"
+	query = "select artist, genre, count(genre) from album where artist = '" + username + "' group by artist, genre order by count(genre) desc limit 1;"
 	cursor.execute(query)
 	return spec1(cursor,a)
 
@@ -221,27 +225,24 @@ def addtolist7(cur,a):
 
 def addtolist8(cur,a):
 	for i in cur:
-		a.append(i)
-
-#8 		
+		a.append(i[0])
+		
 @app.route("/suggestartist")
 def suggestartist():
-	a=[]
+	a = []
 	username = request.args.get("username")
-	#favoriteArtist = favartist(username)
-	maingenre = mainArtistGenre("ali")
-	query = "select username from artist;"
+	favoriteArtist = favartist(username)
+	maingenre = mainArtistGenre(favoriteArtist)
+	query = "select username from artist where username not in (select following from follow where follower = '" + username + "') and username not in ('" + username + "');"
 	cursor.execute(query)
 	addtolist8(cursor, a)
 	mydict = {}
 	for i in a:
-		if(maingenre == mainArtistGenre(str(i))):
+		if(mainArtistGenre(i) == maingenre):
 			mydict['artist'] = i
 			break
-
 	jsonObj = json.dumps(mydict)
 	return jsonObj
-
 
 def addtolist9(cur,a):
 	for i in cur:
