@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -348,14 +348,15 @@ def fans():
 def addtolist13(cur,a):
 	for i in cur:
 		mydict = {}
-		mydict['artist'] = i[0]
+		mydict['title'] = i[0]
+		mydict['artist'] = i[1]
 		a.append(mydict)
 
 @app.route("/suggestnational")
 def suggestnational():
 	a = []
 	username = request.args.get("username")
-	query = "select title from album inner join user on album.artist = user.username where nationality in (select nationality from user where username = '" + str(username) + "');"
+	query = "select title, artist from album inner join user on album.artist = user.username where nationality in (select nationality from user where username = '" + str(username) + "');"
 	cursor.execute(query)
 	addtolist13(cursor, a)
 	jsonObj = json.dumps(a)
