@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -16,11 +16,11 @@ cursor = db.cursor()
 @app.route("/debug")
 def debug():
 	username = request.args.get("username")
-	return favoritelistenergenre(username)
+	return mainArtistGenre(username)
 
 def spec1(cur,a):
 	for i in cur:
-		return str(i[0])
+		return str(i[1])
 
 def mainArtistGenre(username):
 	a = []
@@ -43,7 +43,7 @@ def mainPlaylistGenre(playlist,owner):
 def spec3(cur,a):
 	for i in cur:
 		return str(i[0])
-
+#
 def favartist(username):
 	a=[]
 	query ="select play.artist , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.username ='"+username+"' group by play.artist order by cnt desc limit 1;"
@@ -315,6 +315,35 @@ def recommendbyplaylist():
 	addtolist11(cursor, a)
 	jsonObj = json.dumps(a)
 	return jsonObj
+
+
+
+def addtolist12(cur,a):
+	for i in cur:
+		#mydict = {}
+		a.append(i[0])
+
+@app.route("/fans")
+def fans():
+	a=[]
+	artist = request.args.get("username")
+	artistgenra = mainArtistGenre(artist)
+	query = "select play.username , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.artist ='"+artist+"' group by play.username having cnt >= 10 order by cnt desc;"
+	cursor.execute(query)
+	addtolist12(cursor, a)
+	b=[]
+	for i in a:
+		if(favoritelistenergenre(i) == artistgenra):
+			mydict = {}
+			mydict['listener'] = i
+			b.append(mydict)
+
+	jsonObj = json.dumps(b)
+	return jsonObj
+
+
+
+
 
 def addtolist13(cur,a):
 	for i in cur:
