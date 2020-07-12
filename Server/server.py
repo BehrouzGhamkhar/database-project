@@ -16,7 +16,7 @@ cursor = db.cursor()
 @app.route("/debug")
 def debug():
 	username = request.args.get("username")
-	return mainArtistGenre(username)
+	return getfivelatest(username)
 
 def spec1(cur,a):
 	for i in cur:
@@ -43,7 +43,7 @@ def mainPlaylistGenre(playlist,owner):
 def spec3(cur,a):
 	for i in cur:
 		return str(i[0])
-#
+
 def favartist(username):
 	a=[]
 	query ="select play.artist , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.username ='"+username+"' group by play.artist order by cnt desc limit 1;"
@@ -59,6 +59,21 @@ def favoritelistenergenre(username):
 	query = "select genre, count(genre) from play inner join album on play.albumtitle = album.title where play.username = '" + username + "' group by genre order by count(genre) desc limit 1;"
 	cursor.execute(query)
 	return spec4(cursor, a)
+
+def spec5(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['title'] = i[0]
+		mydict['artist'] = i[1]
+		mydict['release date'] = str(i[2])
+		a.append(mydict)
+	return a
+
+def getfivelatest(username):
+	a = []
+	query = "select song.title, song.artist, releasedate from song inner join album on song.albumtitle = album.title and song.artist = album.artist where song.artist = '" + username + "' order by releasedate desc limit 5;"
+	cursor.execute(query)
+	return spec5(cursor, a)
 
 
 def addtolist1(cur,result,queryType):
@@ -214,25 +229,23 @@ def followingfeed():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
-
-#7
-'''
 def addtolist7(cur,a):
+	templist = []
 	for i in cur:
-		mydict = {}
-		mydict['title'] = i[0]
-		mydict['artist'] = i[1]
-		a.append(mydict)
+		templist.append(i[0])
+	for i in templist:
+		tempresult = getfivelatest(i)
+		[a.append(j) for j in tempresult]
+		
 
-
-@app.route("/")
+@app.route("/getlatestfollowingfivesongs")
+def getlatestfollowingfivesongs():
 	a = []
-	query = "select song.title,song.artist from song inner join album where song.albumtitle = alb  "
+	username = request.args.get("username")
+	query = "select username from artist inner join follow on username = following where follower = '" + username + "';"
 	cursor.execute(query)
-	addtolist9(cursor, a)
-	jsonObj = json.dumps(a)
-	return jsonObj
-'''
+	addtolist7(cursor, a)
+	return json.dumps(a)
 
 def addtolist8(cur,a):
 	for i in cur:
