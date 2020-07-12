@@ -326,7 +326,7 @@ def addtolist13(cur,a):
 def suggestnational():
 	a = []
 	username = request.args.get("username")
-	query = "select artist.username from artist inner join user on artist.username = user.username where nationality = (select nationality from user where username = '" + str(username) + "');"
+	query = "select title from album inner join user on album.artist = user.username where nationality in (select nationality from user where username = '" + str(username) + "');"
 	cursor.execute(query)
 	addtolist13(cursor, a)
 	jsonObj = json.dumps(a)
