@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -15,7 +15,8 @@ cursor = db.cursor()
 
 @app.route("/debug")
 def debug():
-	return mainArtistGenre("ali")
+	username = request.args.get("username")
+	return favoritelistenergenre(username)
 
 def spec1(cur,a):
 	for i in cur:
@@ -48,6 +49,16 @@ def favartist(username):
 	query ="select play.artist , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.username ='"+username+"' group by play.artist order by cnt desc limit 1;"
 	cursor.execute(query)
 	return spec3(cursor,a)
+
+def spec4(cur,a):
+	for i in cur:
+		return str(i[0])
+
+def favoritelistenergenre(username):
+	a = []
+	query = "select genre, count(genre) from play inner join album on play.albumtitle = album.title where play.username = '" + username + "' group by genre order by count(genre) desc limit 1;"
+	cursor.execute(query)
+	return spec4(cursor, a)
 
 
 def addtolist1(cur,result,queryType):
@@ -257,6 +268,31 @@ def hitsongsoftheweek():
 	query = "select songtitle, count(songtitle) from play where datediff(curdate(),dateplayed) <= 7 group by(songtitle) order by count(songtitle) desc limit 5;"
 	cursor.execute(query)
 	addtolist9(cursor, a)
+	jsonObj = json.dumps(a)
+	return jsonObj
+
+def addtolist10(cur,a,querytype):
+	for i in cur:
+		mydict = {}
+		if(querytype==1):
+			mydict['title'] = i[0]
+			mydict['release date'] = str(i[1])
+		elif(querytype==2):
+			mydict['title'] = i[0]
+			mydict['times played'] = i[1]
+		a.append(mydict)
+
+@app.route("/suggestonfavorite")
+def suggestonfavorite():
+	a = []
+	username = request.args.get("username")
+	favoritegenre = favoritelistenergenre(username)
+	query = "select song.title, releasedate from song inner join album on song.artist = album.artist and song.albumtitle = album.title where genre = '" + favoritegenre + "' order by releasedate desc limit 5;"
+	cursor.execute(query)
+	addtolist10(cursor, a,1)
+	query = "select songtitle, count(songtitle) from play inner join album on play.albumtitle = album.title and play.artist = album.artist where genre = '" + favoritegenre + "' group by songtitle order by count(songtitle) desc limit 5;"
+	cursor.execute(query)
+	addtolist10(cursor, a,2)
 	jsonObj = json.dumps(a)
 	return jsonObj
 
