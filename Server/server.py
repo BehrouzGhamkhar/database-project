@@ -583,6 +583,15 @@ def addsongtoplaylist():
 	songtitle = request.args.get("songtitle")
 	albumtitle = request.args.get("albumtitle")
 	artist = request.args.get("artist")
+	
+	query = "select songtitle from addsong where songtitle = '" + songtitle + "' and artist = '" + artist + "' and playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(a):
+		return "This song already exists in this playlist!", 406
+
 	query = "insert into addsong values(curdate(),'" + playlisttitle + "','" + playlistowner + "','" + songtitle + "','" + albumtitle + "','" + artist + "');"
 	cursor.execute(query)
 	db.commit()
