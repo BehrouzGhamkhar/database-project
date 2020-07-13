@@ -162,8 +162,9 @@ DROP TABLE IF EXISTS `follow`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `follow` (
-  `follower` varchar(20) DEFAULT NULL,
-  `following` varchar(20) DEFAULT NULL,
+  `follower` varchar(20) NOT NULL,
+  `following` varchar(20) NOT NULL,
+  PRIMARY KEY (`follower`,`following`),
   KEY `follower` (`follower`),
   KEY `following` (`following`),
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower`) REFERENCES `user` (`username`),
@@ -177,7 +178,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES ('ali','behrouz'),('reza','behrouz'),('reza','ali'),('behrouz','ali'),('ali','ahmad'),('reza','ahmad');
+INSERT INTO `follow` VALUES ('ahmad','reza'),('ali','behrouz'),('ali','reza'),('behrouz','ali'),('behrouz','reza'),('bot1','ahmad'),('bot1','reza'),('bot2','ahmad'),('bot2','reza'),('bot3','ahmad'),('bot3','reza'),('bot4','ahmad'),('bot4','reza'),('bot5','ahmad'),('bot5','reza'),('bot6','reza'),('reza','ali');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,7 +290,7 @@ CREATE TABLE `play` (
 
 LOCK TABLES `play` WRITE;
 /*!40000 ALTER TABLE `play` DISABLE KEYS */;
-INSERT INTO `play` VALUES ('reza','2020-02-03 00:00:00','gun','evolve','ali'),('behrouz','2020-02-04 00:00:00','bliever','evolve','ali'),('ahmad','2020-02-04 00:00:00','guns','evolve','ali'),('reza','2020-02-03 09:30:00','chop suey!','toxicity','ali'),('reza','2020-02-03 10:00:00','chop suey!','toxicity','ali'),('behrouz','2020-03-05 00:00:00','bliever','evolve','ali'),('behrouz','2020-03-05 17:53:00','bliever','evolve','ali'),('ali','2020-05-07 00:00:00','guns','evolve','ali'),('ali','2018-05-03 00:00:00','chop suey!','toxicity','ali'),('reza','2020-07-05 10:00:00','gun','evolve','ali'),('reza','2020-07-05 10:05:00','gun','evolve','ali'),('reza','2020-07-05 10:10:00','gun','evolve','ali'),('reza','2020-07-05 10:15:00','gun','evolve','ali'),('reza','2020-07-05 10:20:00','gun','evolve','ali'),('reza','2020-07-05 10:25:00','gun','evolve','ali'),('ali','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-06 10:25:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:27:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:28:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-08 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-10 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','bliever','evolve','ali'),('ahmad','2018-02-02 00:00:00','the art teacher','road','behrouz'),('ahmad','2018-02-02 00:00:00','going to a town','road','behrouz');
+INSERT INTO `play` VALUES ('reza','2020-02-03 00:00:00','gun','evolve','ali'),('behrouz','2020-02-04 00:00:00','bliever','evolve','ali'),('ahmad','2020-02-04 00:00:00','guns','evolve','ali'),('reza','2020-02-03 09:30:00','chop suey!','toxicity','ali'),('reza','2020-02-03 10:00:00','chop suey!','toxicity','ali'),('behrouz','2020-03-05 00:00:00','bliever','evolve','ali'),('behrouz','2020-03-05 17:53:00','bliever','evolve','ali'),('ali','2020-05-07 00:00:00','guns','evolve','ali'),('ali','2018-05-03 00:00:00','chop suey!','toxicity','ali'),('reza','2020-07-05 10:00:00','gun','evolve','ali'),('reza','2020-07-05 10:05:00','gun','evolve','ali'),('reza','2020-07-05 10:10:00','gun','evolve','ali'),('reza','2020-07-05 10:15:00','gun','evolve','ali'),('reza','2020-07-05 10:20:00','gun','evolve','ali'),('reza','2020-07-05 10:25:00','gun','evolve','ali'),('ali','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-06 10:25:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:27:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:28:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-08 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-10 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','bliever','evolve','ali'),('ahmad','2018-02-02 00:00:00','the art teacher','road','behrouz'),('ahmad','2018-02-02 00:00:00','going to a town','road','behrouz'),('reza','2020-07-09 00:00:00','aslsp','the wall','ali'),('ahmad','2020-07-10 00:00:00','aslsp','the wall','ali');
 /*!40000 ALTER TABLE `play` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,6 +342,7 @@ CREATE TABLE `premium` (
 
 LOCK TABLES `premium` WRITE;
 /*!40000 ALTER TABLE `premium` DISABLE KEYS */;
+INSERT INTO `premium` VALUES (10,'ali','2020-07-04'),(22,'behrouz','2020-06-03'),(17,'reza','2020-07-04');
 /*!40000 ALTER TABLE `premium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +398,7 @@ CREATE TABLE `song` (
 
 LOCK TABLES `song` WRITE;
 /*!40000 ALTER TABLE `song` DISABLE KEYS */;
-INSERT INTO `song` VALUES ('abitw1','the wall','ali',330),('abitw2','the wall','ali',330),('bliever','evolve','ali',204),('bohemian rhapsody','road','behrouz',370),('chop suey!','toxicity','ali',210),('comfortably numb','the wall','ali',350),('dont stop me now','road','behrouz',290),('empty spaces','the wall','ali',330),('going to a town','road','behrouz',300),('gun','evolve','ali',204),('guns','evolve','ali',224),('hey you','the wall','ali',380),('im still standing','bloom','behrouz',247),('in the flesh','the wall','ali',450),('invincible','bloom','behrouz',335),('run like hell','the wall','ali',390),('the art teacher','road','behrouz',280),('the trial','the wall','ali',410),('weird fishes','in rainbows','reza',340),('wish you were here','wish you were here','behrouz',247);
+INSERT INTO `song` VALUES ('abitw1','the wall','ali',330),('abitw2','the wall','ali',330),('aslsp','the wall','ali',400000),('bliever','evolve','ali',204),('bohemian rhapsody','road','behrouz',370),('chop suey!','toxicity','ali',210),('comfortably numb','the wall','ali',350),('dont stop me now','road','behrouz',290),('empty spaces','the wall','ali',330),('going to a town','road','behrouz',300),('gun','evolve','ali',204),('guns','evolve','ali',224),('hey you','the wall','ali',380),('im still standing','bloom','behrouz',247),('in the flesh','the wall','ali',450),('invincible','bloom','behrouz',335),('run like hell','the wall','ali',390),('the art teacher','road','behrouz',280),('the trial','the wall','ali',410),('weird fishes','in rainbows','reza',340),('wish you were here','wish you were here','behrouz',247);
 /*!40000 ALTER TABLE `song` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +428,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08');
+INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('bot1','b1@gmail.com','iran','pass','q','a','2020-07-13'),('bot2','b2@gmail.com','iran','pass','q','a','2020-07-13'),('bot3','b3@gmail.com','iran','pass','q','a','2020-07-13'),('bot4','b4@gmail.com','iran','pass','q','a','2020-07-13'),('bot5','b5@gmail.com','iran','pass','q','a','2020-07-13'),('bot6','b6@gmail.com','iran','pass','q','a','2020-07-13'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -439,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13 16:32:17
+-- Dump completed on 2020-07-13 17:44:54
