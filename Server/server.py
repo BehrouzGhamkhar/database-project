@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -581,7 +581,20 @@ def playsong():
 	songtitle = request.args.get("songtitle")
 	albumtitle = request.args.get("albumtitle")
 	artist = request.args.get("artist")
-	query = "insert into play values ('"+username+"',curdate(),'"+songtitle+"','"+albumtitle+"','"+artist+"') ;"
+	query = "select username from premium where username = '"+ username +"';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i[0])
+	if(not a):	
+		query = "select count(songtitle) from play where username ='"+ username +"' and date(dateplayed) = curdate() ;"
+		cursor.execute(query)
+		for i in cursor:
+			if int(i[0]) >=5:
+				return "You can't play any more songs since you're not a premium user or your premium account has been expired.",406
+
+
+	query = "insert into play values ('"+username+"',current_timestamp,'"+songtitle+"','"+albumtitle+"','"+artist+"') ;"
 	cursor.execute(query)
 	db.commit()
 	return "song played successfully", 201
@@ -611,7 +624,7 @@ def addsongtoplaylist():
 
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
-	try:
+#	try:
 		username = request.args.get("username")
 		duration = request.args.get("duration")
 		query = "select duration from premium where username = '" + username + "' ;"
@@ -629,7 +642,7 @@ def buypremium():
 		db.commit()
 		return response + "Premium account has been bought successfully", 201
 	
-	except :
+#	except :
 		return "You don't have permission to buy premium account."
 	
 
