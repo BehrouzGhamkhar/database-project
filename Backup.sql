@@ -341,7 +341,6 @@ CREATE TABLE `premium` (
 
 LOCK TABLES `premium` WRITE;
 /*!40000 ALTER TABLE `premium` DISABLE KEYS */;
-INSERT INTO `premium` VALUES (10,'ali','2020-07-04'),(22,'behrouz','2020-07-04');
 /*!40000 ALTER TABLE `premium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,6 +414,7 @@ CREATE TABLE `user` (
   `password` varchar(20) DEFAULT NULL,
   `personalquestion` varchar(20) DEFAULT NULL,
   `personalanswer` varchar(20) DEFAULT NULL,
+  `signupdate` date DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -426,7 +426,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq'),('ali','a@gmail.com','iran','123','que','ans'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ'),('reza','r@gmail','zimbabwe','12','qw','ssw');
+INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -439,4 +439,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13  4:13:08
+-- Dump completed on 2020-07-13 16:32:17
