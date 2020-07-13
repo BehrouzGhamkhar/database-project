@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -535,11 +535,53 @@ def releasealbum():
 		db.commit()
 		return "Album added successfully", 201
 
+
+
+@app.route("/follow",methods=["POST"])
+def follow():
+	username = request.args.get("username")
+	target = request.args.get("target")
+	query = "insert into follow values('"+username+"','"+target+"');"
+	cursor.execute(query)
+	db.commit()
+	return "followed successfully", 201
+
+@app.route("/unfollow",methods=["POST"])
+def unfollow():
+	username = request.args.get("username")
+	target = request.args.get("target")
+	query = "delete from follow where follower ='"+username+"' and following ='"+target+"';"
+	cursor.execute(query)
+	db.commit()
+	return "unfollowed successfully", 200
+
+@app.route("/likesong",methods=["POST"])
+def likesong():
+	username = request.args.get("username")
+	songtitle = request.args.get("songtitle")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	query = "insert into likesong values ('"+username+"','"+songtitle+"','"+albumtitle+"','"+artist+"') ;"
+	cursor.execute(query)
+	db.commit()
+	return "song liked successfully", 201
+
+@app.route("/playsong",methods=["POST"])
+def playsong():
+	username = request.args.get("username")
+	songtitle = request.args.get("songtitle")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	query = "insert into play values ('"+username+"',curdate(),'"+songtitle+"','"+albumtitle+"','"+artist+"') ;"
+	cursor.execute(query)
+	db.commit()
+	return "song played successfully", 201
+
+
+
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
-
-
-
 
 '''
 @app.route("/login", methods=["POST"])
