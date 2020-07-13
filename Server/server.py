@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -408,6 +408,23 @@ def lazyartist():
 	addtolist15(cursor,a)
 	jsonObj = json.dumps(a)
 	return jsonObj
+
+def addtolist16(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['username'] = i[0]
+		mydict['total length'] = int(i[1])/3600
+		mydict['sign-up date'] = str(i[2])
+		a.append(mydict)
+	return(a)
+
+@app.route("/sususer")
+def sususer():
+	a = []
+	query = "select user.username, sum(length), signupdate from user inner join play inner join song on play.artist = song.artist and play.songtitle = song.title and user.username = play.username where user.username not in (select username from premium) group by(username) having (sum(length)/datediff(curdate(),signupdate))/3600>=17 and (select count(follower) from follow where following = user.username)/(select count(following) from follow where follower = user.username)>5;"
+	cursor.execute(query)
+	addtolist16(cursor, a)
+	return json.dumps(a)
 
 def addtolist17(cur,a):
 	for i in cur:
