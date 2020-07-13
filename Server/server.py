@@ -597,6 +597,35 @@ def addsongtoplaylist():
 	db.commit()
 	return "Song added successfully", 201
 
+
+
+@app.route("/buypremium",methods=["POST"])
+def buypremium():
+	try:
+		username = request.args.get("username")
+		duration = request.args.get("duration")
+		query = "select duration from premium where username = '" + username + "' ;"
+		cursor.execute(query)
+		a = []
+		response =""
+		for i in cursor:
+			a.append(i[0])
+		if(a):	
+			response = "Account already is premium."
+			duration = int(a[0]) + int(duration)
+
+		query = "insert into premium values ("+ str(duration) +",'"+ username +"',curdate()) ;"
+		cursor.execute(query)
+		db.commit()
+		return response + "Premium account has been bought successfully", 201
+	
+	except :
+		return "You don't have permission to buy premium account."
+	
+
+
+
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
 
