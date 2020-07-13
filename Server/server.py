@@ -75,6 +75,20 @@ def getfivelatest(username):
 	cursor.execute(query)
 	return spec5(cursor, a)
 
+def getfollowercnt(username):
+	a=[]
+	query = "select count(follower) from follow where following = '"+username+"';"
+	cursor.execute(query)
+	for i in cursor:
+		return i[0]
+
+def getfollowingcnt(username):
+	a=[]
+	query = "select count(following) from follow where follower = '"+username+"';"
+	cursor.execute(query)
+	for i in cursor:
+		return i[0]
+
 
 def addtolist1(cur,result,queryType):
 	for i in cur:
@@ -137,28 +151,65 @@ def viewqueryspec2(cur,a):
 		mydict["artistic name"] = i[1]
 		a.append(mydict)
 
+def viewqueryspec3(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["album title"] = i[0]
+		mydict["release date"] = str(i[1])
+		a.append(mydict)
+
+def viewqueryspec4(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["song title"] = i[0]
+		mydict["song artist"] = i[1]
+		a.append(mydict)
+
+def viewqueryspec5(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["playlist title"] = i[0]
+		mydict["count songs"] = i[1]
+		mydict["last update"] = str(i[2])
+		a.append(mydict)
+
+def viewqueryspec6(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["followers"] = i[0]
+		mydict["followings"] = i[1]
+		a.append(mydict)
+
+
 @app.route("/view")
 def view():
 	a=[]
 	usrname = request.args.get("usrname")
 	query = "select username , firstname, lastname from listener where username ='" + str(usrname) + "';"
 	cursor.execute(query)
-	queryspec1(cursor, a)
+	viewqueryspec1(cursor, a)
 	if(not a):
 		query = "select username , artisticname from artist where username ='" +str(usrname)+ "';"
 		cursor.execute(query)
-		queryspec2(cursor, a)
-		mainArtistGenre = mainArtistGenre(username)
+		viewqueryspec2(cursor, a)
+		a.append({"main genre" : mainArtistGenre(usrname)})
 		albumquery = "select title , releasedate from album where artist ='" + str(usrname) +"' order by(releasedate) desc;"
-		popularSongsQuery= " select play.songtitle from play inner join likesong on play.artist = likesong.artist where play.artist = '"+ usrname+ "' order by count(likesong.songtitle)/count(play.songtitle) desc limit 3;" 
+		cursor.execute(albumquery)
+		viewqueryspec3(cursor, a)
 		
-	query = "select title , count(songtitle) , dateadded addsong where username =="+str(usrname)+" ;"
-	cursor.execute(query)
-	followerquery = "select follower,following  from follow as t,follow as s where t.follower = '"+ usrname +"' and s.following = '"+ usrname +"' ;"
+		popularSongsQuery= "select play.songtitle , play.artist , count(likesong.songtitle), count(play.songtitle) from play inner join likesong on play.artist = likesong.artist and play.songtitle = likesong.songtitle and play.username = likesong.username where play.artist = '"+usrname+"' group by likesong.songtitle order by count(likesong.songtitle) desc , count(play.songtitle) asc limit 3 ;" 
+		cursor.execute(popularSongsQuery)
+		viewqueryspec4(cursor, a)
 
-	query = "select count(*) from song as a , playlist as t where t.username == a.artist and song.username =="+str(usrname)
+	query = "select playlisttitle , count(songtitle) , max(dateadded) from addsong where playlistowner ='"+str(usrname)+"' group by playlisttitle;"
 	cursor.execute(query)
+	viewqueryspec5(cursor, a)
 
+	followerquery = getfollowercnt(usrname)
+	followingquery = getfollowingcnt(usrname)
+	a.append({"followers" : followerquery})
+	a.append({"followings" : followingquery})
+	return json.dumps(a)
 
 def addtolist3(cur,a):
 	for i in cur:
