@@ -521,7 +521,16 @@ def releasealbum():
 	title = request.args.get("title")
 	artist = request.args.get("artist")
 	genre = request.args.get("genre")
-	releasedate = request.args.get("releasedate")
+
+	query = "select isapproved from artist where username = '" + artist + "';"
+	cursor.execute(query)
+	isapproved = 0
+	for i in cursor:
+		if(i[0]==0):
+			return "You are not an approved artist yet.", 406
+		break
+		
+
 	query = "select title from album where title = '" + title + "' and artist = '" + artist + "';"
 	cursor.execute(query)
 	a = []
@@ -529,7 +538,8 @@ def releasealbum():
 		a.append(i)
 	if(a):
 		return "This album already exists", 406
-	query = "insert into album values('" + title + "','" + artist + "','" + genre + "','" + releasedate + "');"
+	
+	query = "insert into album values('" + title + "','" + artist + "','" + genre + "', curdate());"
 	cursor.execute(query)
 	db.commit()
 	return "Album added successfully", 201
