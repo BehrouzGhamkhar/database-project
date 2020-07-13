@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -409,8 +409,24 @@ def lazyartist():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def addtolist17(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict['username'] = i[0]
+		a.append(mydict)
 
 
+@app.route("/consistentuser")
+def consistentuser():
+	a=[]
+	query = ''' select distinct follower from follow inner join 
+	(select temp.username as usrname, temp.cnt , temp.signupdate from (select user.username , count(songtitle) as cnt , user.signupdate from user inner join play on user.username = play.username group by user.username) as temp where temp.cnt/datediff(curdate(),temp.signupdate) >= 1) as temp2
+		on following = temp2.usrname;
+	 '''
+	cursor.execute(query)
+	addtolist17(cursor,a)
+	jsonObj = json.dumps(a)
+	return jsonObj
 
 
 if __name__ == "__main__":
