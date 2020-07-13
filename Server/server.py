@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -122,26 +122,44 @@ def search():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+def viewqueryspec1(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["username"] = i[0]
+		mydict["first name"] = i[1]
+		mydict["last name"] = i[2]
+		a.append(mydict)
 
-'''
+def viewqueryspec2(cur,a):
+	for i in cur:
+		mydict = {}
+		mydict["username"] = i[0]
+		mydict["artistic name"] = i[1]
+		a.append(mydict)
+
 @app.route("/view")
 def view():
 	a=[]
 	usrname = request.args.get("usrname")
-	query = "select username from listener where username =="+str(usrname)
+	query = "select username , firstname, lastname from listener where username ='" + str(usrname) + "';"
 	cursor.execute(query)
-	addtolist2(cursor, a, 5)
-	query = "select artisticname from artist where username =="+str(usrname)
+	queryspec1(cursor, a)
+	if(not a):
+		query = "select username , artisticname from artist where username ='" +str(usrname)+ "';"
+		cursor.execute(query)
+		queryspec2(cursor, a)
+		mainArtistGenre = mainArtistGenre(username)
+		albumquery = "select title , releasedate from album where artist ='" + str(usrname) +"' order by(releasedate) desc;"
+		popularSongsQuery= " select play.songtitle from play inner join likesong on play.artist = likesong.artist where play.artist = '"+ usrname+ "' order by count(likesong.songtitle)/count(play.songtitle) desc limit 3;" 
+		
+	query = "select title , count(songtitle) , dateadded addsong where username =="+str(usrname)+" ;"
 	cursor.execute(query)
-
-	query = "select title from playlist where username =="+str(usrname)
-	cursor.execute(query)
+	followerquery = "select follower,following  from follow as t,follow as s where t.follower = '"+ usrname +"' and s.following = '"+ usrname +"' ;"
 
 	query = "select count(*) from song as a , playlist as t where t.username == a.artist and song.username =="+str(usrname)
 	cursor.execute(query)
 
 
-'''
 def addtolist3(cur,a):
 	for i in cur:
 		mydict = {}
