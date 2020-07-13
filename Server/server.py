@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -518,22 +518,21 @@ def consistentuser():
 
 @app.route("/releasealbum",methods=["POST"])
 def releasealbum():
-	if(request.method=="POST"):
-		title = request.args.get("title")
-		artist = request.args.get("artist")
-		genre = request.args.get("genre")
-		releasedate = request.args.get("releasedate")
-		query = "select title from album where title = '" + title + "' and artist = '" + artist + "';"
-		cursor.execute(query)
-		a = []
-		for i in cursor:
-			a.append(i)
-		if(a):
-			return "This album already exists", 406
-		query = "insert into album values('" + title + "','" + artist + "','" + genre + "','" + releasedate + "');"
-		cursor.execute(query)
-		db.commit()
-		return "Album added successfully", 201
+	title = request.args.get("title")
+	artist = request.args.get("artist")
+	genre = request.args.get("genre")
+	releasedate = request.args.get("releasedate")
+	query = "select title from album where title = '" + title + "' and artist = '" + artist + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(a):
+		return "This album already exists", 406
+	query = "insert into album values('" + title + "','" + artist + "','" + genre + "','" + releasedate + "');"
+	cursor.execute(query)
+	db.commit()
+	return "Album added successfully", 201
 
 
 
@@ -577,8 +576,17 @@ def playsong():
 	db.commit()
 	return "song played successfully", 201
 
-
-
+@app.route("/addsongtoplaylist",methods=["POST"])
+def addsongtoplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	songtitle = request.args.get("songtitle")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	query = "insert into addsong values(curdate(),'" + playlisttitle + "','" + playlistowner + "','" + songtitle + "','" + albumtitle + "','" + artist + "');"
+	cursor.execute(query)
+	db.commit()
+	return "Song added successfully", 201
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
