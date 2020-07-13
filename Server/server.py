@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -645,9 +645,35 @@ def buypremium():
 #	except :
 		return "You don't have permission to buy premium account."
 	
+@app.route("/signup",methods=["POST"])
+def signup():
+	username = request.args.get("username")
+	email = request.args.get("email")
+	nationality = request.args.get("nationality")
+	password = request.args.get("password")
+	personalquestion = request.args.get("personalquestion")
+	personalanswer = request.args.get("personalanswer")
 
+	query = "select username from user where username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i[0])
+	if(a):
+		return "This username already exists.", 406
 
+	query = "select email from user where email = '" + email + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i[0])
+	if(a):
+		return "This email already exists.", 406
 
+	query = "insert into user values('" + username + "','" + email + "','" + nationality + "','" + password + "','" + personalquestion + "','" + personalanswer + "',curdate());"
+	cursor.execute(query)
+	db.commit()
+	return "Profile created successfully.", 201
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
