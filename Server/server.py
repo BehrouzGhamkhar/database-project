@@ -621,7 +621,7 @@ def buypremium():
 		for i in cursor:
 			a.append(i[0])
 		if(a):	
-			response = "Account already is premium."
+			response = "The account is already premium."
 			duration = int(a[0]) + int(duration)
 
 		query = "insert into premium values ("+ str(duration) +",'"+ username +"',curdate()) ;"
