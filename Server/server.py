@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -514,6 +514,26 @@ def consistentuser():
 	jsonObj = json.dumps(a)
 	return jsonObj
 
+#User Specs
+
+@app.route("/releasealbum",methods=["POST"])
+def releasealbum():
+	if(request.method=="POST"):
+		title = request.args.get("title")
+		artist = request.args.get("artist")
+		genre = request.args.get("genre")
+		releasedate = request.args.get("releasedate")
+		query = "select title from album where title = '" + title + "' and artist = '" + artist + "';"
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append(i)
+		if(a):
+			return "This album already exists", 406
+		query = "insert into album values('" + title + "','" + artist + "','" + genre + "','" + releasedate + "');"
+		cursor.execute(query)
+		db.commit()
+		return "Album added successfully", 201
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
