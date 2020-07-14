@@ -806,5 +806,42 @@ def login():
 	else: #if password is wrong
 		return "Wrong password!", 406
 
+def checkplaylistcreation(title,username): #Checks if the user can create another playlist
+	query = "select username from premium where username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+
+	if(not a):
+		query = "select count(title) from playlist where username = '" + username + "';"
+		cursor.execute(query)
+		for i in cursor:
+			if(int(i[0])>=5):
+				return False
+	return True
+
+@app.route("/createplaylist",methods=["POST"])
+def addplaylist():
+	title = request.args.get("title")
+	username = request.args.get("username")
+	
+	access = checkplaylistcreation(title, username)
+	if(access==False):
+		return "You can't make another playlist, since you're not a premium user or your premium account has been expired.",406
+
+	query = "select title from playlist where title = '" + title + "' and username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(a):
+		return "A playlist with this name already exists.", 406
+
+	query = "insert into playlist values('" + title + "','" + username + "');"
+	cursor.execute(query)
+	db.commit()
+	return "Playlist created successfully", 201
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
