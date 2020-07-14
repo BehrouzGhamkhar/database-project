@@ -29,10 +29,13 @@ CREATE TABLE `addsong` (
   `songtitle` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `albumtitle` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `artist` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `adder` varchar(20) DEFAULT NULL,
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
+  KEY `adder` (`adder`),
   CONSTRAINT `addsong_ibfk_1` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`) ON DELETE CASCADE,
-  CONSTRAINT `addsong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE
+  CONSTRAINT `addsong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE,
+  CONSTRAINT `addsong_ibfk_3` FOREIGN KEY (`adder`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,7 +45,7 @@ CREATE TABLE `addsong` (
 
 LOCK TABLES `addsong` WRITE;
 /*!40000 ALTER TABLE `addsong` DISABLE KEYS */;
-INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali'),('2001-05-02','myplaylist','behrouz','gun','evolve','ali'),('2003-12-12','myplaylist','behrouz','abitw1','the wall','ali'),('2003-12-12','myplaylist','behrouz','abitw2','the wall','ali'),('2003-12-12','myplaylist','behrouz','comfortably numb','the wall','ali'),('2003-12-12','myplaylist','behrouz','empty spaces','the wall','ali'),('2004-12-14','alijfriplaylist','ali','gun','evolve','ali'),('2004-12-14','alijfriplaylist','ali','guns','evolve','ali'),('2020-07-13','myplaylist','behrouz','aslsp','the wall','ali');
+INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali',NULL),('2001-05-02','myplaylist','behrouz','gun','evolve','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw1','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw2','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','comfortably numb','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','empty spaces','the wall','ali',NULL),('2004-12-14','alijfriplaylist','ali','gun','evolve','ali',NULL),('2004-12-14','alijfriplaylist','ali','guns','evolve','ali',NULL),('2020-07-13','myplaylist','behrouz','aslsp','the wall','ali',NULL);
 /*!40000 ALTER TABLE `addsong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-15  1:14:02
+-- Dump completed on 2020-07-15  1:51:46
