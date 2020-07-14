@@ -704,8 +704,34 @@ def aslistener():
 		if(a):
 			return "A listener account corresponding to this username already exists.", 406
 
-#@app.route("/asartist",methods=["POST"])
-#def asartist()
+@app.route("/asartist",methods=["POST"])
+def asartist():
+	username = request.args.get("username")
+	artisticname = request.args.get("artisticname")
+	debutyear = request.args.get("debutyear")
+
+	try:
+		query = "insert into artist values('" + username + "','" + artisticname + "'," + debutyear + ",0);"
+		cursor.execute(query)
+		db.commit()
+		return "Your artist account was created successfully", 201
+	except:
+		query = "select * from user where username = '" + username + "';"
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append(i)
+		if(not a):
+			return "No corresponding user exists for this artist account.", 406
+
+		query = "select * from artist where username = '" + username + "';"
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append(i)
+		if(a):
+			return "An artist account corresponding to this username already exists.", 406
+		
 
 @app.route("/deleteprofile",methods=["POST"])
 def deleteprofile():
