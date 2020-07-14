@@ -423,10 +423,6 @@ def fans():
 	jsonObj = json.dumps(b)
 	return jsonObj
 
-
-
-
-
 def addtolist13(cur,a):
 	for i in cur:
 		mydict = {}
@@ -585,6 +581,20 @@ def unlikesong():
 	cursor.execute(query)
 	db.commit()
 	return "song unliked successfully", 201
+
+@app.route("/reportsong",methods=["POST"])
+def reportsong():
+	try:
+		songtitle = request.args.get("songtitle")
+		albumtitle = request.args.get("albumtitle")
+		artist = request.args.get("artist")
+		username = request.args.get("username")
+		query = "insert into report values('" + songtitle + "','" + albumtitle + "','" + artist + "','" + username + "');"
+		cursor.execute(query)
+		db.commit()
+		return "Song reported successfully", 201
+	except:
+		return "This song is already deleted"
 
 @app.route("/playsong",methods=["POST"])
 def playsong():
