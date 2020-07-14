@@ -675,6 +675,21 @@ def signup():
 	db.commit()
 	return "Profile created successfully.", 201
 
+@app.route("/deleteprofile",methods=["POST"])
+def deleteprofile():
+	username = request.args.get("username")
+	password = request.args.get("password")
+	query = "select password from user where username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		if password != i[0]:
+			return "Wrong password!", 406
+	query = "delete from user where username = '" + username + "' and password = '" + password + "';"
+	cursor.execute(query)
+	db.commit()
+	return "Profile deleted successfully.", 200
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
 
