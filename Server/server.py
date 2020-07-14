@@ -575,6 +575,17 @@ def likesong():
 	db.commit()
 	return "song liked successfully", 201
 
+@app.route("/unlikesong",methods=["POST"])
+def unlikesong():
+	username = request.args.get("username")
+	songtitle = request.args.get("songtitle")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	query = "delete from likesong where username = '" + username + "' and songtitle = '" + songtitle + "' and albumtitle = '" + albumtitle + "' and artist = '" + artist + "';"
+	cursor.execute(query)
+	db.commit()
+	return "song unliked successfully", 201
+
 @app.route("/playsong",methods=["POST"])
 def playsong():
 	username = request.args.get("username")
