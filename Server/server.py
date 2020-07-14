@@ -748,15 +748,42 @@ def deleteprofile():
 	db.commit()
 	return "Profile deleted successfully.", 200
 
+@app.route("/login",methods=["POST"])
+def login():
+	username = request.args.get("username")
+	password = request.args.get("password")
+
+	query = "select username, password from user where username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append((i[0],i[1]))
+	if(not a):
+		return "Invalid username!", 406
+
+	if(a[0][1]==password):
+		if(a[0][0]=="admin"):
+			return "Logged in successfully as admin", 200
+		else:
+			query = "select username from listener where username = '" + a[0][0] + "';"
+			cursor.execute(query)
+			temp = []
+			for i in cursor:
+				temp.append(i)
+			if(temp):
+				return "Logged in successfully as a listener", 200
+
+			query = "select username from artist where username = '" + a[0][0] + "';"
+			cursor.execute(query)
+			for i in cursor:
+				temp.append(i)
+			if(temp):
+				return "Logged in successfully as an artist", 200
+
+			return "You should create a listener account or an artist account", 406
+
+	else: #if password is wrong
+		return "Wrong password!", 406
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
-
-'''
-@app.route("/login", methods=["POST"])
-def login():
-	username = 
-	password =
-	
-	db.commit()
-	return "Done!"
-'''	
