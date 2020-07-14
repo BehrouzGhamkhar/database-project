@@ -109,10 +109,11 @@ DROP TABLE IF EXISTS `artist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `artist` (
-  `username` varchar(20) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
   `artisticname` varchar(10) DEFAULT NULL,
   `debutyear` int(11) DEFAULT NULL,
   `isapproved` int(11) DEFAULT NULL,
+  PRIMARY KEY (`username`),
   KEY `username` (`username`),
   CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -124,7 +125,7 @@ CREATE TABLE `artist` (
 
 LOCK TABLES `artist` WRITE;
 /*!40000 ALTER TABLE `artist` DISABLE KEYS */;
-INSERT INTO `artist` VALUES ('behrouz','yegane',1996,1),('ali','dragons',1900,1),('reza','reza_absz',2020,1);
+INSERT INTO `artist` VALUES ('ali','dragons',1900,1),('behrouz','yegane',1996,1),('bot3','lilbig',1999,0),('reza','reza_absz',2020,1);
 /*!40000 ALTER TABLE `artist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES ('ahmad','reza'),('ali','behrouz'),('ali','reza'),('behrouz','ali'),('behrouz','reza'),('bot1','ahmad'),('bot1','reza'),('bot2','ahmad'),('bot2','reza'),('bot3','ahmad'),('bot3','reza'),('bot4','ahmad'),('bot4','reza'),('bot5','ahmad'),('bot5','reza'),('bot6','reza'),('reza','ali');
+INSERT INTO `follow` VALUES ('ahmad','reza'),('ali','behrouz'),('ali','reza'),('behrouz','ali'),('behrouz','reza'),('bot3','ahmad'),('bot3','reza'),('bot4','ahmad'),('bot4','reza'),('bot6','reza'),('reza','ali');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +235,7 @@ CREATE TABLE `likesong` (
 
 LOCK TABLES `likesong` WRITE;
 /*!40000 ALTER TABLE `likesong` DISABLE KEYS */;
-INSERT INTO `likesong` VALUES ('behrouz','aslsp','the wall','ali'),('reza','aslsp','the wall','ali'),('TheBigSheikh','bliever','evolve','ali'),('TheBigSheikh','gun','evolve','ali');
+INSERT INTO `likesong` VALUES ('TheBigSheikh','gun','evolve','ali');
 /*!40000 ALTER TABLE `likesong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,10 +247,11 @@ DROP TABLE IF EXISTS `listener`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `listener` (
-  `username` varchar(20) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
   `firstname` varchar(15) DEFAULT NULL,
   `lastname` varchar(15) DEFAULT NULL,
   `yearofbirth` int(11) DEFAULT NULL,
+  PRIMARY KEY (`username`),
   KEY `username` (`username`),
   CONSTRAINT `listener_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -261,7 +263,7 @@ CREATE TABLE `listener` (
 
 LOCK TABLES `listener` WRITE;
 /*!40000 ALTER TABLE `listener` DISABLE KEYS */;
-INSERT INTO `listener` VALUES ('behrouz','behrouz','ghamkhar',1999),('reza','reza','abbaszadeh',1999),('TheBigSheikh','amirhossein','sheikh',1999),('fahmin','ahmads','zoghi',1999);
+INSERT INTO `listener` VALUES ('ali','ali','jafari',1999),('behrouz','behrouz','ghamkhar',1999),('fahmin','ahmads','zoghi',1999),('reza','reza','abbaszadeh',1999),('TheBigSheikh','amirhossein','sheikh',1999);
 /*!40000 ALTER TABLE `listener` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,7 +364,7 @@ CREATE TABLE `report` (
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
   KEY `username` (`username`),
   CONSTRAINT `report_ibfk_1` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE,
-  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
+  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -372,6 +374,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
+INSERT INTO `report` VALUES ('aslsp','the wall','ali','behrouz'),('aslsp','the wall','ali','behrouz'),('aslsp','the wall','ali','behrouz');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +415,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
-  `email` varchar(20) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `nationality` varchar(20) DEFAULT NULL,
   `password` varchar(20) DEFAULT NULL,
   `personalquestion` varchar(20) DEFAULT NULL,
@@ -429,7 +432,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('bot1','b1@gmail.com','iran','pass','q','a','2020-07-13'),('bot2','b2@gmail.com','iran','pass','q','a','2020-07-13'),('bot3','b3@gmail.com','iran','pass','q','a','2020-07-13'),('bot4','b4@gmail.com','iran','pass','q','a','2020-07-13'),('bot5','b5@gmail.com','iran','pass','q','a','2020-07-13'),('bot6','b6@gmail.com','iran','pass','q','a','2020-07-13'),('fahmin','f@yahoo.com','iran','1231','1wew','ssa','2020-07-14'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08'),('TheBigSheikh','s@gmail.com','iran','123311','qwew','wwwww','2020-07-09');
+INSERT INTO `user` VALUES ('admin','fumdbprojectadmin@gmail.com','iran','adminpassword','adminquestion','adminanswer','2020-07-14'),('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('bot3','b3@gmail.com','iran','pass','q','a','2020-07-13'),('bot4','b4@gmail.com','iran','pass','q','a','2020-07-13'),('bot6','b6@gmail.com','iran','pass','q','a','2020-07-13'),('fahmin','f@yahoo.com','iran','1231','1wew','ssa','2020-07-14'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08'),('TheBigSheikh','s@gmail.com','iran','123311','qwew','wwwww','2020-07-09');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -442,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-14  5:27:19
+-- Dump completed on 2020-07-15  1:14:02
