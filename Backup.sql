@@ -31,8 +31,8 @@ CREATE TABLE `addsong` (
   `artist` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
-  CONSTRAINT `addsong_ibfk_1` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`),
-  CONSTRAINT `addsong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`)
+  CONSTRAINT `addsong_ibfk_1` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`) ON DELETE CASCADE,
+  CONSTRAINT `addsong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,8 +59,8 @@ CREATE TABLE `adduser` (
   `playlistowner` varchar(20) DEFAULT NULL,
   KEY `username` (`username`),
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
-  CONSTRAINT `adduser_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
-  CONSTRAINT `adduser_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`)
+  CONSTRAINT `adduser_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `adduser_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -87,7 +87,7 @@ CREATE TABLE `album` (
   `releasedate` date DEFAULT NULL,
   PRIMARY KEY (`title`,`artist`),
   KEY `artist` (`artist`),
-  CONSTRAINT `album_ibfk_1` FOREIGN KEY (`artist`) REFERENCES `artist` (`username`)
+  CONSTRAINT `album_ibfk_1` FOREIGN KEY (`artist`) REFERENCES `artist` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,7 +114,7 @@ CREATE TABLE `artist` (
   `debutyear` int(11) DEFAULT NULL,
   `isapproved` int(11) DEFAULT NULL,
   KEY `username` (`username`),
-  CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,7 +141,7 @@ CREATE TABLE `creditcard` (
   `username` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`number`),
   KEY `username` (`username`),
-  CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`)
+  CONSTRAINT `creditcard_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,8 +167,8 @@ CREATE TABLE `follow` (
   PRIMARY KEY (`follower`,`following`),
   KEY `follower` (`follower`),
   KEY `following` (`following`),
-  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower`) REFERENCES `user` (`username`),
-  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`following`) REFERENCES `user` (`username`)
+  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`follower`) REFERENCES `user` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`following`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,8 +195,8 @@ CREATE TABLE `likeplaylist` (
   `playlistowner` varchar(20) DEFAULT NULL,
   KEY `username` (`username`),
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
-  CONSTRAINT `likeplaylist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
-  CONSTRAINT `likeplaylist_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`)
+  CONSTRAINT `likeplaylist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `likeplaylist_ibfk_2` FOREIGN KEY (`playlisttitle`, `playlistowner`) REFERENCES `playlist` (`title`, `username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -223,8 +223,8 @@ CREATE TABLE `likesong` (
   `artist` varchar(20) DEFAULT NULL,
   KEY `username` (`username`),
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
-  CONSTRAINT `likesong_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
-  CONSTRAINT `likesong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`)
+  CONSTRAINT `likesong_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `likesong_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -251,7 +251,7 @@ CREATE TABLE `listener` (
   `lastname` varchar(15) DEFAULT NULL,
   `yearofbirth` int(11) DEFAULT NULL,
   KEY `username` (`username`),
-  CONSTRAINT `listener_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `listener_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,8 +280,8 @@ CREATE TABLE `play` (
   `artist` varchar(20) DEFAULT NULL,
   KEY `username` (`username`),
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
-  CONSTRAINT `play_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
-  CONSTRAINT `play_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`)
+  CONSTRAINT `play_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
+  CONSTRAINT `play_ibfk_2` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -307,7 +307,7 @@ CREATE TABLE `playlist` (
   `username` varchar(20) NOT NULL,
   PRIMARY KEY (`title`,`username`),
   KEY `username` (`username`),
-  CONSTRAINT `playlist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `playlist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -333,7 +333,7 @@ CREATE TABLE `premium` (
   `username` varchar(20) NOT NULL,
   `subdate` date DEFAULT NULL,
   KEY `username` (`username`),
-  CONSTRAINT `premium_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`)
+  CONSTRAINT `premium_ibfk_1` FOREIGN KEY (`username`) REFERENCES `listener` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -361,8 +361,8 @@ CREATE TABLE `report` (
   `username` varchar(20) DEFAULT NULL,
   KEY `songtitle` (`songtitle`,`albumtitle`,`artist`),
   KEY `username` (`username`),
-  CONSTRAINT `report_ibfk_1` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`),
-  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`)
+  CONSTRAINT `report_ibfk_1` FOREIGN KEY (`songtitle`, `albumtitle`, `artist`) REFERENCES `song` (`title`, `albumtitle`, `artist`) ON DELETE CASCADE,
+  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -389,7 +389,7 @@ CREATE TABLE `song` (
   `length` int(11) DEFAULT NULL,
   PRIMARY KEY (`title`,`albumtitle`,`artist`),
   KEY `albumtitle` (`albumtitle`,`artist`),
-  CONSTRAINT `song_ibfk_1` FOREIGN KEY (`albumtitle`, `artist`) REFERENCES `album` (`title`, `artist`)
+  CONSTRAINT `song_ibfk_1` FOREIGN KEY (`albumtitle`, `artist`) REFERENCES `album` (`title`, `artist`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -442,4 +442,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-14  3:18:23
+-- Dump completed on 2020-07-14  5:27:19
