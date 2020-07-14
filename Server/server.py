@@ -675,6 +675,38 @@ def signup():
 	db.commit()
 	return "Profile created successfully.", 201
 
+@app.route("/aslistener",methods=["POST"])
+def aslistener():
+	username = request.args.get("username")
+	firstname = request.args.get("firstname")
+	lastname = request.args.get("lastname")
+	yearofbirth = request.args.get("yearofbirth")
+	
+	try:
+		query = "insert into listener values('" + username + "','" + firstname + "','" + lastname + "'," + yearofbirth + ");"
+		cursor.execute(query)
+		db.commit()
+		return "Your listener account was created successfully", 201
+	except:
+		query = "select * from user where username = '" + username + "';"
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append(i)
+		if(not a):
+			return "No corresponding user exists for this listener account.", 406
+
+		query = "select * from listener where username = '" + username + "';"
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append(i)
+		if(a):
+			return "A listener account corresponding to this username already exists.", 406
+
+#@app.route("/asartist",methods=["POST"])
+#def asartist()
+
 @app.route("/deleteprofile",methods=["POST"])
 def deleteprofile():
 	username = request.args.get("username")
