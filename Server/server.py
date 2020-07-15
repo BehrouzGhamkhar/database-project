@@ -1189,8 +1189,8 @@ def getreportlist():
 	return json.dumps(a)
 
 
-@app.route("/deletereportedsong",methods=["POST"])
-def deletereportedsong():
+@app.route("/ignorereportedsong",methods=["POST"])
+def ignorereportedsong():
 	artist = request.args.get("artist")
 	songtitle = request.args.get("songtitle")
 
@@ -1198,8 +1198,18 @@ def deletereportedsong():
 	cursor.execute(query)
 	db.commit()
 
-	return "Song deleted from report list by admin successfully", 200
+	return "Song ignored from report list by admin successfully", 200
 
+@app.route("/deletereportedsong",methods=["POST"])
+def deletereportedsong():
+	artist = request.args.get("artist")
+	title = request.args.get("title")
+
+	query = "delete from song where artist ='" + artist + "' and title ='" + title + "';"
+	cursor.execute(query)
+	db.commit()
+
+	return "Song deleted by admin successfully", 200
 
 
 @app.route("/debug")
