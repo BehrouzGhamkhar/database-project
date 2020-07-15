@@ -896,6 +896,14 @@ def asartist():
 def deleteprofile():
 	username = request.args.get("username")
 	password = request.args.get("password")
+
+	if(username=="admin" and password=="adminpassword"): #if it's the admin who wants to delete someone
+		query = "delete from user where username = '" + username + "';"
+		cursor.execute(query)
+		db.commit()
+		return "Profile deleted successfully.", 200
+
+	#if it's the user themselves
 	query = "select password from user where username = '" + username + "';"
 	cursor.execute(query)
 	a = []
