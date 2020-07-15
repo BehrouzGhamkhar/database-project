@@ -597,7 +597,30 @@ def addsongtoalbum():
 	query = "insert into song values('"+ title +"','"+ albumtitle +"','"+ artist +"','"+ length +"');"
 	cursor.execute(query)
 	db.commit()
-	return "Song added successfully" ,201
+	return "Song added to album successfully" ,201
+
+
+
+@app.route("/deletesongfromalbum",methods=["POST"])
+def deletesongfromalbum():
+	title = request.args.get("title")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	length = request.args.get("length")
+	
+	query = "select title,artist from album where title ='"+ albumtitle +"' and artist = '"+ artist +"';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "Album not found", 404
+
+	query = "delete from song where title = '"+ title +"' and albumtitle = '"+ albumtitle +"' and artist = '"+ artist +"' and length = '"+ length +"';"
+	cursor.execute(query)
+	db.commit()
+	return "Song deleted from album successfully" ,200
+
 
 
 @app.route("/follow",methods=["POST"])
