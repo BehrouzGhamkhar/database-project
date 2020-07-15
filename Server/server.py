@@ -1036,16 +1036,15 @@ def asartist():
 def deleteprofile():
 	username = request.args.get("username")
 	password = request.args.get("password")
+	salt = ""
 	query = "select password, salt from user where username = '" + username + "';"
-
-	'''
 	cursor.execute(query)
-	a = []
 	for i in cursor:
-		if password != i[0]:
+		salt = i[1]
+		if(checkpassword(password,i[1],i[0])==False):
 			return "Wrong password!", 406
-	'''
-	query = "delete from user where username = '" + username + "' and password = '" + password + "';"
+
+	query = "delete from user where username = '" + username + "' and password = '" + generatepassword(password,salt) + "';"
 	cursor.execute(query)
 	db.commit()
 	return "Profile deleted successfully.", 200
@@ -1055,15 +1054,15 @@ def login():
 	username = request.args.get("username")
 	password = request.args.get("password")
 
-	query = "select username, password from user where username = '" + username + "';"
+	query = "select username, password, salt from user where username = '" + username + "';"
 	cursor.execute(query)
 	a = []
 	for i in cursor:
-		a.append((i[0],i[1]))
+		a.append((i[0],i[1],i[2]))
 	if(not a):
 		return "Invalid username!", 406
 
-	if(a[0][1]==password):
+	if(checkpassword(password,a[0][2],a[0][1])):
 		if(a[0][0]=="admin"):
 			return "Logged in successfully as admin", 200
 		else:
@@ -1236,8 +1235,7 @@ def deletereportedsong():
 
 @app.route("/debug")
 def debug():
-	salt = generatesalt()
-	return(generatepassword("abcdefghijklmnopqrstuvwxyz",salt))
+	return str(checkpassword("wrong", "$w%}]", "80d01c2f2d9bbac8a2c7b66faf54b181"))
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
