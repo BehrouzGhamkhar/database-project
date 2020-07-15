@@ -17,6 +17,16 @@ def spec1(cur,a):
 	for i in cur:
 		return str(i[1])
 
+def playlistexists(title,username): #Check if the playlsit exists
+	query = "select title from playlist where title = '" + title + "' and username = '" + username + "';" #Check if the playlist exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return False
+	return True
+
 def mainArtistGenre(username):
 	a = []
 	query = "select artist, genre, count(genre) from album where artist = '" + username + "' group by artist, genre order by count(genre) desc limit 1;"
@@ -635,12 +645,7 @@ def addsongtoplaylist():
 	artist = request.args.get("artist")
 	adder = request.args.get("adder")
 
-	query = "select title from playlist where title = '" + playlisttitle + "';" #Check if the playlist exists
-	cursor.execute(query)
-	a = []
-	for i in cursor:
-		a.append(i)
-	if(not a):
+	if(playlistexists(playlisttitle,playlistowner)==False):
 		return "Playlist not found", 404
 
 	access = checkplaylistaccess(playlisttitle, playlistowner, adder) # Check if the adder has access to the playlist
@@ -668,12 +673,7 @@ def removesongfromplaylist():
 	artist = request.args.get("artist")
 	user = request.args.get("username")
 
-	query = "select title from playlist where title = '" + playlisttitle + "';" #Check if the playlist exists
-	cursor.execute(query)
-	a = []
-	for i in cursor:
-		a.append(i)
-	if(not a):
+	if(playlistexists(playlisttitle,playlistowner)==False):
 		return "Playlist not found", 404
 
 	access = checkplaylistaccess(playlisttitle, playlistowner, user) # Check if the user has access to the playlist
@@ -684,6 +684,32 @@ def removesongfromplaylist():
 	cursor.execute(query)
 	db.commit()
 	return "Song removed successfully", 200
+
+@app.route("/addusertoplaylist",methods=["POST"])
+def addusertoplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	adder = request.args.get("adder")
+	user = request.args.get("username")
+
+	if(playlistexists(playlisttitle,playlistowner)==False):
+		return "Playlist not found", 404
+
+	query = "select username from user where username = '" + user + "';" #Check if the user exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "User not found",404
+
+	if(adder!=playlistowner):
+		return "You can't add users to this playlist, since you're not its owner", 406
+
+	query = "insert into adduser values('" + user + "','" + playlisttitle + "','" + playlistowner + "');"
+	cursor.execute(query)
+	db.commit()
+	return "User was added successfully to the playlist", 201
 
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
@@ -864,7 +890,7 @@ def checkplaylistcreation(title,username): #Checks if the user can create anothe
 	return True
 
 @app.route("/createplaylist",methods=["POST"])
-def addplaylist():
+def createplaylist():
 	title = request.args.get("title")
 	username = request.args.get("username")
 	
