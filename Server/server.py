@@ -770,6 +770,17 @@ def likeplaylist():
 	except:
 		return "Invalid parameters", 406
 
+@app.route("/unlikeplaylist",methods=["POST"])
+def unlikeplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	user = request.args.get("username")
+
+	query = "delete from likeplaylist where username = '" + user + "' and playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "';"
+	cursor.execute(query)
+	db.commit()
+	return "Playlist unliked successfully", 200
+
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
 	try:
