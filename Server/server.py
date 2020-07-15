@@ -1118,6 +1118,23 @@ def deleteplaylist():
 	db.commit()
 	return "Playlist deleted successfully", 200
 
+@app.route("/unapprovedartists",methods=["POST"])
+def unapprovedartists():
+	a=[]
+	query= "select username , artisticname , debutyear  from artist where isapproved = 0 ; "
+	cursor.execute(query)
+	for i in cursor:
+		myDict = {}
+		myDict['username'] = i[0]
+		myDict['artisticname'] = i[1]
+		myDict['debutyear'] = i[2]
+		a.append(myDict)
+
+	return json.dumps(a)
+
+
+
+
 @app.route("/debug")
 def debug():
 	pass
