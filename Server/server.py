@@ -1,13 +1,16 @@
-from flask import Flask ,redirect,url_for,render_template,request
+from flask import Flask ,request
 import mysql.connector
 import json
+import hashlib
+import random
+import string
 
 app = Flask(__name__)
 
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -16,6 +19,19 @@ cursor = db.cursor()
 def spec1(cur,a):
 	for i in cur:
 		return str(i[1])
+
+def generatesalt():
+	alphabet = string.ascii_letters + string.digits + string.punctuation
+	result = "".join([random.choice(alphabet) for i in range(5)])
+	return result
+
+def generatepassword(inputpassword,salt):
+	result = inputpassword + salt
+	return hashlib.md5(result.encode()).hexdigest()
+
+def checkpassword(inputpassword,salt,targetpassword):
+	result = generatepassword(inputpassword, salt)
+	return result==targetpassword
 
 def playlistexists(title,username): #Check if the playlsit exists
 	query = "select title from playlist where title = '" + title + "' and username = '" + username + "';" #Check if the playlist exists
@@ -950,7 +966,10 @@ def signup():
 	if(a):
 		return "This email already exists.", 406
 
-	query = "insert into user values('" + username + "','" + email + "','" + nationality + "','" + password + "','" + personalquestion + "','" + personalanswer + "',curdate());"
+	salt = generatesalt()
+	password = generatepassword(password, salt)
+
+	query = "insert into user values('" + username + "','" + email + "','" + nationality + "','" + password + "','" + personalquestion + "','" + personalanswer + "',curdate(),'" + salt + "');"
 	cursor.execute(query)
 	db.commit()
 	return "Profile created successfully.", 201
@@ -1017,12 +1036,15 @@ def asartist():
 def deleteprofile():
 	username = request.args.get("username")
 	password = request.args.get("password")
-	query = "select password from user where username = '" + username + "';"
+	query = "select password, salt from user where username = '" + username + "';"
+
+	'''
 	cursor.execute(query)
 	a = []
 	for i in cursor:
 		if password != i[0]:
 			return "Wrong password!", 406
+	'''
 	query = "delete from user where username = '" + username + "' and password = '" + password + "';"
 	cursor.execute(query)
 	db.commit()
@@ -1214,7 +1236,8 @@ def deletereportedsong():
 
 @app.route("/debug")
 def debug():
-	pass
+	salt = generatesalt()
+	return(generatepassword("abcdefghijklmnopqrstuvwxyz",salt))
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
