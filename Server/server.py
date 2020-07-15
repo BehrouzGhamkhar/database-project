@@ -615,9 +615,9 @@ def playsong():
 	db.commit()
 	return "song played successfully", 201
 
-def checkplaylistaccess(title,owner,adder):
+def checkplaylistaccess(title,owner,user):
 	hasaccess = False
-	query = "(select title from playlist where username = '" + adder + "') union (select playlisttitle from adduser where username = '" + adder + "' and playlistowner = '" + owner + "');"
+	query = "(select title from playlist where username = '" + user + "') union (select playlisttitle from adduser where username = '" + user + "' and playlistowner = '" + owner + "');"
 	cursor.execute(query)
 	a = []
 	for i in cursor:
@@ -660,8 +660,30 @@ def addsongtoplaylist():
 	db.commit()
 	return "Song added successfully", 201
 
+@app.route("/removesongfromplaylist",methods=["POST"])
+def removesongfromplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	songtitle = request.args.get("songtitle")
+	artist = request.args.get("artist")
+	user = request.args.get("username")
 
+	query = "select title from playlist where title = '" + playlisttitle + "';" #Check if the playlist exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "Playlist not found", 404
 
+	access = checkplaylistaccess(playlisttitle, playlistowner, user) # Check if the user has access to the playlist
+	if(access==False):
+		return "You don't have access to this playlist", 406
+
+	query = "delete from addsong where playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "' and songtitle = '" + songtitle + "' and artist = '" + artist + "';"
+	cursor.execute(query)
+	db.commit()
+	return "Song removed successfully", 200
 
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
