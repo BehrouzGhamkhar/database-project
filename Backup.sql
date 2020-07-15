@@ -45,7 +45,7 @@ CREATE TABLE `addsong` (
 
 LOCK TABLES `addsong` WRITE;
 /*!40000 ALTER TABLE `addsong` DISABLE KEYS */;
-INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali',NULL),('2001-05-02','myplaylist','behrouz','gun','evolve','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw1','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw2','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','comfortably numb','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','empty spaces','the wall','ali',NULL),('2004-12-14','alijfriplaylist','ali','gun','evolve','ali',NULL),('2004-12-14','alijfriplaylist','ali','guns','evolve','ali',NULL),('2020-07-13','myplaylist','behrouz','aslsp','the wall','ali',NULL);
+INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali',NULL),('2001-05-02','myplaylist','behrouz','gun','evolve','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw1','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw2','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','comfortably numb','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','empty spaces','the wall','ali',NULL),('2004-12-14','alijfriplaylist','ali','guns','evolve','ali',NULL),('2020-07-13','myplaylist','behrouz','aslsp','the wall','ali',NULL),('2020-07-15','alijfriplaylist','ali','aslsp','the wall','ali','reza'),('2020-07-15','alijfriplaylist','ali','chop suey!','toxicity','ali','reza');
 /*!40000 ALTER TABLE `addsong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ CREATE TABLE `album` (
 
 LOCK TABLES `album` WRITE;
 /*!40000 ALTER TABLE `album` DISABLE KEYS */;
-INSERT INTO `album` VALUES ('bloom','behrouz','prog rock','2003-07-23'),('day 1','ali','pop-rock','2005-07-12'),('day 2','ali','pop-rock','2015-07-12'),('evolve','ali','pop-rock','2001-05-02'),('illumination','reza','pop-rock','2010-07-18'),('in rainbows','reza','alternative rock','2020-07-10'),('meddle','reza','prog rock','1971-05-07'),('road','behrouz','pop-rock','2012-09-17'),('the diving board','reza','pop-rock','2013-07-18'),('the wall','ali','prog rock','2027-12-07'),('toxicity','ali','alt metal','1999-10-10'),('wish you were here','behrouz','prog rock','2007-12-12');
+INSERT INTO `album` VALUES ('bloom','behrouz','prog rock','2003-07-23'),('day 2','ali','pop-rock','2015-07-12'),('evolve','ali','pop-rock','2001-05-02'),('illumination','reza','pop-rock','2010-07-18'),('in rainbows','reza','alternative rock','2020-07-10'),('meddle','reza','prog rock','1971-05-07'),('road','behrouz','pop-rock','2012-09-17'),('the diving board','reza','pop-rock','2013-07-18'),('the wall','ali','prog rock','2027-12-07'),('toxicity','ali','alt metal','1999-10-10'),('wish you were here','behrouz','prog rock','2007-12-12');
 /*!40000 ALTER TABLE `album` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,6 +155,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
+INSERT INTO `creditcard` VALUES (1111,'2020-07-25','fahmin');
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,9 +195,10 @@ DROP TABLE IF EXISTS `likeplaylist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `likeplaylist` (
-  `username` varchar(20) DEFAULT NULL,
-  `playlisttitle` varchar(20) DEFAULT NULL,
-  `playlistowner` varchar(20) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
+  `playlisttitle` varchar(20) NOT NULL,
+  `playlistowner` varchar(20) NOT NULL,
+  PRIMARY KEY (`username`,`playlisttitle`,`playlistowner`),
   KEY `username` (`username`),
   KEY `playlisttitle` (`playlisttitle`,`playlistowner`),
   CONSTRAINT `likeplaylist_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
@@ -322,7 +324,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
-INSERT INTO `playlist` VALUES ('alijfriplaylist','ali'),('myplaylist','behrouz');
+INSERT INTO `playlist` VALUES ('alijfriplaylist','ali'),('playlist1','ali'),('playlist2','ali'),('playlist3','ali'),('myplaylist','behrouz');
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +350,7 @@ CREATE TABLE `premium` (
 
 LOCK TABLES `premium` WRITE;
 /*!40000 ALTER TABLE `premium` DISABLE KEYS */;
-INSERT INTO `premium` VALUES (22,'behrouz','2020-06-03'),(17,'reza','2020-07-04'),(30,'TheBigSheikh','2020-07-14'),(60,'TheBigSheikh','2020-07-14'),(30,'fahmin','2020-07-14');
+INSERT INTO `premium` VALUES (40,'behrouz','2020-06-03'),(40,'reza','2020-07-04'),(40,'TheBigSheikh','2020-07-14'),(40,'TheBigSheikh','2020-07-14'),(140,'fahmin','2020-07-15');
 /*!40000 ALTER TABLE `premium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-15  1:51:46
+-- Dump completed on 2020-07-15 22:10:41
