@@ -1132,8 +1132,21 @@ def unapprovedartists():
 
 	return json.dumps(a)
 
+@app.route("/approveartist",methods=["POST"])
+def approveartist():
+	username = request.args.get("username")
+	query = "update artist set isapproved = 1 where username = '"+ username +"';"
+	cursor.execute(query)
+	db.commit()
+	return "Artist approved successfully" , 201
 
-
+@app.route("/unapproveartist",methods=["POST"])
+def unapproveartist():
+	username = request.args.get("username")
+	query = "delete from artist where username = '"+ username +"';"
+	cursor.execute(query)
+	db.commit()
+	return "Artist account deleted successfully" , 200
 
 @app.route("/debug")
 def debug():
