@@ -843,5 +843,21 @@ def addplaylist():
 	db.commit()
 	return "Playlist created successfully", 201
 
+@app.route("/deleteplaylist",methods=["POST"])
+def deleteplaylist():
+	title = request.args.get("title")
+	username = request.args.get("username")
+	query = "select title, username from playlist where title = '" + title + "' and username = '" + username + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "No such playlist exists", 406
+	query = "delete from playlist where title = '" + title + "' and username = '" + username + "';"	
+	cursor.execute(query)
+	db.commit()
+	return "Playlist deleted successfully", 200
+
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
