@@ -13,11 +13,6 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-@app.route("/debug")
-def debug():
-	username = request.args.get("username")
-	return getfivelatest(username)
-
 def spec1(cur,a):
 	for i in cur:
 		return str(i[1])
@@ -620,6 +615,17 @@ def playsong():
 	db.commit()
 	return "song played successfully", 201
 
+def checkplaylistaccess(title,owner,adder):
+	hasaccess = False
+	query = "(select title from playlist where username = '" + adder + "') union (select playlisttitle from adduser where username = '" + adder + "' and playlistowner = '" + owner + "');"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		if(str(i[0])==title):
+			hasaccess = True
+			break
+	return hasaccess
+
 @app.route("/addsongtoplaylist",methods=["POST"])
 def addsongtoplaylist():
 	playlisttitle = request.args.get("playlist")
@@ -627,6 +633,19 @@ def addsongtoplaylist():
 	songtitle = request.args.get("songtitle")
 	albumtitle = request.args.get("albumtitle")
 	artist = request.args.get("artist")
+	adder = request.args.get("adder")
+
+	query = "select title from playlist where title = '" + playlisttitle + "';" #Check if the playlist exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "Playlist not found", 404
+
+	access = checkplaylistaccess(playlisttitle, playlistowner, adder) # Check if the adder has access to the playlist
+	if(access==False):
+		return "You don't have access to this playlist", 406
 	
 	query = "select songtitle from addsong where songtitle = '" + songtitle + "' and artist = '" + artist + "' and playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "';"
 	cursor.execute(query)
@@ -636,10 +655,11 @@ def addsongtoplaylist():
 	if(a):
 		return "This song already exists in this playlist!", 406
 
-	query = "insert into addsong values(curdate(),'" + playlisttitle + "','" + playlistowner + "','" + songtitle + "','" + albumtitle + "','" + artist + "');"
+	query = "insert into addsong values(curdate(),'" + playlisttitle + "','" + playlistowner + "','" + songtitle + "','" + albumtitle + "','" + artist + "','" + adder + "');"
 	cursor.execute(query)
 	db.commit()
 	return "Song added successfully", 201
+
 
 
 
@@ -858,6 +878,10 @@ def deleteplaylist():
 	cursor.execute(query)
 	db.commit()
 	return "Playlist deleted successfully", 200
+
+@app.route("/debug")
+def debug():
+	return str(checkplaylistaccess("alijfriplaylist","ali","behrouz"))
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
