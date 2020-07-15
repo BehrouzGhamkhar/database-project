@@ -756,9 +756,23 @@ def removeuserfromplaylist():
 	db.commit()
 	return "User remvoed successfully", 200
 
+@app.route("/likeplaylist",methods=["POST"])
+def likeplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	user = request.args.get("username")
+
+	try:
+		query = "insert into likeplaylist values('" + user + "','" + playlisttitle + "','" + playlistowner + "');"
+		cursor.execute(query)
+		db.commit()
+		return "Playlist liked successfully", 201
+	except:
+		return "Invalid parameters", 406
+
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
-#	try:
+	try:
 		username = request.args.get("username")
 		duration = request.args.get("duration")
 		query = "select duration from premium where username = '" + username + "' ;"
@@ -776,7 +790,7 @@ def buypremium():
 		db.commit()
 		return response + "Premium account has been bought successfully", 201
 	
-#	except :
+	except :
 		return "You don't have permission to buy premium account."
 	
 @app.route("/signup",methods=["POST"])
