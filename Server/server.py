@@ -27,6 +27,23 @@ def playlistexists(title,username): #Check if the playlsit exists
 		return False
 	return True
 
+def checkdate(inputdate):
+	query = "select datediff('" + str(inputdate) + "',curdate());"
+	cursor.execute(query)
+	for i in cursor:
+		if(i[0]<0): return False
+		else: return True
+
+def insertcreditcard(username, number, exp):
+	query = "insert into creditcard values(" + str(number) + ",'" + exp + "','" + username + "');"
+	cursor.execute(query)
+	db.commit()
+
+def deletecreditcard(username):
+	query = "delete from creditcard where username = '" + username + "';"
+	cursor.execute(query)
+	db.commit()
+
 def mainArtistGenre(username):
 	a = []
 	query = "select artist, genre, count(genre) from album where artist = '" + username + "' group by artist, genre order by count(genre) desc limit 1;"
@@ -786,21 +803,48 @@ def buypremium():
 	try:
 		username = request.args.get("username")
 		duration = request.args.get("duration")
-		query = "select duration from premium where username = '" + username + "' ;"
+		cardnumber = request.args.get("cardnumber")
+		cardexpdate = request.args.get("cardexpdate")
+
+		query = "select number, expdate from creditcard where username = '" + username + "';" #Check if the user had previously bought a premium account
+		cursor.execute(query)
+		a = []
+		for i in cursor:
+			a.append((int(i[0]),i[1]))
+		if(not a): #No credit card found, check the credit card user has entered
+			if(checkdate(cardexpdate)==False):
+				return "The credit card you've entered has an invalid expiration date", 406
+			#if not, then it means that the user has entered a valid expiration date for the credit card
+			insertcreditcard(username, cardnumber, cardexpdate)
+
+		else: #The user had previously bought a premium account
+			if(a[0][0]==int(cardnumber)):
+				if(checkdate(a[0][1])==False):
+					deletecreditcard(username)
+					return "Your credit card has expired and was deleted from the system", 406
+			else:
+				return "Invalid credit card number", 406
+
+		#if everything's fine, proceed to buy the premium account
+
+		query = "select duration from premium where username = '" + username + "' ;" #Check if user's premium account still has some remaining duration
 		cursor.execute(query)
 		a = []
 		response =""
 		for i in cursor:
 			a.append(i[0])
-		if(a):	
-			response = "The account is already premium."
+		if(a): #Increase the remaining time
 			duration = int(a[0]) + int(duration)
+			query = "update premium set duration = " + str(duration) + " where username = '" + username + "';"
+			cursor.execute(query)
+			db.commit()
+			return response + "Premium account has been bought successfully", 201
 
 		query = "insert into premium values ("+ str(duration) +",'"+ username +"',curdate()) ;"
 		cursor.execute(query)
 		db.commit()
 		return response + "Premium account has been bought successfully", 201
-	
+
 	except :
 		return "You don't have permission to buy premium account."
 	
@@ -896,14 +940,6 @@ def asartist():
 def deleteprofile():
 	username = request.args.get("username")
 	password = request.args.get("password")
-
-	if(username=="admin" and password=="adminpassword"): #if it's the admin who wants to delete someone
-		query = "delete from user where username = '" + username + "';"
-		cursor.execute(query)
-		db.commit()
-		return "Profile deleted successfully.", 200
-
-	#if it's the user themselves
 	query = "select password from user where username = '" + username + "';"
 	cursor.execute(query)
 	a = []
@@ -1007,7 +1043,7 @@ def deleteplaylist():
 
 @app.route("/debug")
 def debug():
-	return str(checkplaylistaccess("alijfriplaylist","ali","behrouz"))
+	pass
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
