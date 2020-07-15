@@ -1174,6 +1174,33 @@ def deletealbumbyadmin():
 	db.commit()
 	return "Album deleted by admin successfully" , 200
 
+@app.route("/getreportlist",methods=["POST"])
+def getreportlist():
+	query = "select songtitle , artist , count(songtitle) from report group by songtitle order by count(songtitle) ;"
+	cursor.execute(query)
+	a=[]
+	for i in cursor:
+		myDict={}
+		myDict["songtitle"] = i[0]
+		myDict["artist"] = i[1]
+		myDict["count"] = i[2]
+		a.append(myDict)
+
+	return json.dumps(a)
+
+
+@app.route("/deletereportedsong",methods=["POST"])
+def deletereportedsong():
+	artist = request.args.get("artist")
+	songtitle = request.args.get("songtitle")
+
+	query = "delete from report where artist ='" + artist + "' and songtitle ='" + songtitle + "';"
+	cursor.execute(query)
+	db.commit()
+
+	return "Song deleted from report list by admin successfully", 200
+
+
 
 @app.route("/debug")
 def debug():
