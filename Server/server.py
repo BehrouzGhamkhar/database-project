@@ -586,13 +586,31 @@ def addsongtoalbum():
 	artist = request.args.get("artist")
 	length = request.args.get("length")
 	
+	query = "select title,artist from song where title ='"+ title +"' and artist = '"+ artist +"';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(a):
+		return "Duplicate song title." , 406
+
+
 	query = "select title,artist from album where title ='"+ albumtitle +"' and artist = '"+ artist +"';"
 	cursor.execute(query)
 	a = []
 	for i in cursor:
 		a.append(i)
 	if(not a):
-		return "Album not found", 404
+		genre = request.args.get("genre")
+		if(genre is None):
+			return " Please enter the genre of the song" , 406
+		query = "insert into album values('"+ title +"','"+ artist +"','"+ genre +"', curdate());"
+		cursor.execute(query)
+		db.commit()
+		query = "insert into song values('"+ title +"','"+ title +"','"+ artist +"','"+ length +"');"
+		cursor.execute(query)
+		db.commit()
+		return "Song added to album successfully" ,201
 
 	query = "insert into song values('"+ title +"','"+ albumtitle +"','"+ artist +"','"+ length +"');"
 	cursor.execute(query)
