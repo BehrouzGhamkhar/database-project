@@ -542,7 +542,6 @@ def releasealbum():
 
 	query = "select isapproved from artist where username = '" + artist + "';"
 	cursor.execute(query)
-	isapproved = 0
 	for i in cursor:
 		if(i[0]==0):
 			return "You are not an approved artist yet.", 406
@@ -561,6 +560,24 @@ def releasealbum():
 	cursor.execute(query)
 	db.commit()
 	return "Album added successfully", 201
+
+@app.route("/deletealbum",methods=["POST"])
+def deletealbum():
+	title = request.args.get("title")
+	artist = request.args.get("artist")
+
+	query = "select title from album where title = '" + title + "' and artist = '" + artist + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "Album not found", 404
+
+	query = "delete from album where title = '" + title + "' and artist = '" + artist + "';"
+	cursor.execute(query)
+	db.commit()
+	return "Album deleted successfully"
 
 
 
