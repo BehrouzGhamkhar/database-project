@@ -1143,10 +1143,37 @@ def approveartist():
 @app.route("/unapproveartist",methods=["POST"])
 def unapproveartist():
 	username = request.args.get("username")
-	query = "delete from artist where username = '"+ username +"';"
+	query = "delete from user where username = '"+ username +"';"
 	cursor.execute(query)
 	db.commit()
-	return "Artist account deleted successfully" , 200
+	return "Unapproved artist account deleted by admin successfully" , 200
+
+@app.route("/deleteaccbyadmin",methods=["POST"])
+def deleteaccbyadmin():
+	username = request.args.get("username")
+	query = "delete from user where username = '"+ username +"';"
+	cursor.execute(query)
+	db.commit()
+	return "Account deleted by admin successfully" , 200
+
+@app.route("/deleteplaylistbyadmin",methods=["POST"])
+def deleteplaylistbyadmin():
+	username = request.args.get("username")
+	title = request.args.get("title")
+	query = "delete from playlist where username = '"+ username +"' and title = '"+ title +"';"
+	cursor.execute(query)
+	db.commit()
+	return "Playlist deleted by admin successfully" , 200
+
+@app.route("/deletealbumbyadmin",methods=["POST"])
+def deletealbumbyadmin():
+	artist = request.args.get("artist")
+	title = request.args.get("title")
+	query = "delete from album where title = '"+ title +"' and artist = '"+ artist +"' ;"
+	cursor.execute(query)
+	db.commit()
+	return "Album deleted by admin successfully" , 200
+
 
 @app.route("/debug")
 def debug():
