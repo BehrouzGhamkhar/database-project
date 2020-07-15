@@ -7,7 +7,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
@@ -577,8 +577,27 @@ def deletealbum():
 	query = "delete from album where title = '" + title + "' and artist = '" + artist + "';"
 	cursor.execute(query)
 	db.commit()
-	return "Album deleted successfully"
+	return "Album deleted successfully" , 200
 
+@app.route("/addsongtoalbum",methods=["POST"])
+def addsongtoalbum():
+	title = request.args.get("title")
+	albumtitle = request.args.get("albumtitle")
+	artist = request.args.get("artist")
+	length = request.args.get("length")
+	
+	query = "select title,artist from album where title ='"+ albumtitle +"' and artist = '"+ artist +"';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "Album not found", 404
+
+	query = "insert into song values('"+ title +"','"+ albumtitle +"','"+ artist +"','"+ length +"');"
+	cursor.execute(query)
+	db.commit()
+	return "Song added successfully" ,201
 
 
 @app.route("/follow",methods=["POST"])
