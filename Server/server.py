@@ -706,10 +706,55 @@ def addusertoplaylist():
 	if(adder!=playlistowner):
 		return "You can't add users to this playlist, since you're not its owner", 406
 
+	query = "select username from adduser where username = '" + user + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(a or user == playlistowner):
+		return "The user you're trying to add is already in the playlist", 406
+
 	query = "insert into adduser values('" + user + "','" + playlisttitle + "','" + playlistowner + "');"
 	cursor.execute(query)
 	db.commit()
 	return "User was added successfully to the playlist", 201
+
+@app.route("/removeuserfromplaylist",methods=["POST"])
+def removeuserfromplaylist():
+	playlisttitle = request.args.get("playlist")
+	playlistowner = request.args.get("owner")
+	remover = request.args.get("remover")
+	user = request.args.get("username")
+
+	if(playlistexists(playlisttitle,playlistowner)==False):
+		return "Playlist not found", 404
+
+	query = "select username from user where username = '" + user + "';" #Check if the user exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "User not found",404
+
+	if(remover!=playlistowner):
+		return "You can't remove users from this playlist, since you're not its owner",406
+
+	if(user==playlistowner):
+		return "You can't delete the playlist owner, try deleting the whole playlist", 406
+
+	query = "select username from adduser where username = '" + user + "';"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+	if(not a):
+		return "The user you're trying to delete is already not in the playlist", 406
+
+	query = "delete from adduser where username = '" + user + "' and playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "';"
+	cursor.execute(query)
+	db.commit()
+	return "User remvoed successfully", 200
 
 @app.route("/buypremium",methods=["POST"])
 def buypremium():
