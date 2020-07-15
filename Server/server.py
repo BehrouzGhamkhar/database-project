@@ -84,7 +84,7 @@ def spec3(cur,a):
 
 def favartist(username):
 	a=[]
-	query ="select play.artist , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.username ='"+username+"' group by play.artist order by cnt desc limit 1;"
+	query ="select play.artist , count(likesong.songtitle), count(play.songtitle) from play inner join song inner join likesong on play.songtitle = song.title and play.artist = song.artist and play.songtitle = likesong.songtitle and play.artist = likesong.artist and play.username = likesong.username where play.username ='"+username+"' group by play.artist order by count(likesong.songtitle) desc, count(play.songtitle) asc limit 1;"
 	cursor.execute(query)
 	return spec3(cursor,a)
 
@@ -210,19 +210,19 @@ def viewqueryspec5(cur,a):
 		mydict["count songs"] = i[1]
 		mydict["last update"] = str(i[2])
 		a.append(mydict)
-
+'''
 def viewqueryspec6(cur,a):
 	for i in cur:
 		mydict = {}
 		mydict["followers"] = i[0]
 		mydict["followings"] = i[1]
 		a.append(mydict)
-
+'''
 
 @app.route("/view")
 def view():
 	a=[]
-	usrname = request.args.get("usrname")
+	usrname = request.args.get("username")
 	query = "select username , firstname, lastname from listener where username ='" + str(usrname) + "';"
 	cursor.execute(query)
 	viewqueryspec1(cursor, a)
@@ -303,7 +303,7 @@ def addtolist5(cur,a):
 		mydict["length"] = i[0]
 		mydict["artist"] = i[1]
 		mydict["title"] = i[2]
-		mydict["date_added"] = str(i[3])
+		mydict["date added"] = str(i[3])
 		mydict["album"] = i[4]
 		a.append(mydict)
 
@@ -311,7 +311,8 @@ def addtolist5(cur,a):
 def playlistsongs():
 	a=[]
 	title = request.args.get("title")
-	query = "select length,addsong.artist,songtitle,dateadded,addsong.albumtitle from addsong inner join song on addsong.songtitle = song.title where  playlisttitle ='"+str(title)+"';"
+	owner = request.args.get("owner")
+	query = "select length,addsong.artist,songtitle,dateadded,addsong.albumtitle from addsong inner join song on addsong.songtitle = song.title and addsong.artist = song.artist where  playlisttitle ='"+str(title)+"' and playlistowner = '" + owner + "';"
 	cursor.execute(query)
 	addtolist5(cursor, a)
 	jsonObj = json.dumps(a)
@@ -364,7 +365,7 @@ def suggestartist():
 	username = request.args.get("username")
 	favoriteArtist = favartist(username)
 	maingenre = mainArtistGenre(favoriteArtist)
-	query = "select username from artist where username not in (select following from follow where follower = '" + username + "') and username not in ('" + username + "');"
+	query = "select username from artist where username not in (select following from follow where follower = '" + username + "');"
 	cursor.execute(query)
 	addtolist8(cursor, a)
 	mydict = {}
@@ -379,13 +380,14 @@ def addtolist9(cur,a):
 	for i in cur:
 		mydict = {}
 		mydict['title'] = i[0]
-		mydict['times played'] = i[1]
+		mydict['times played'] = i[2]
+		mydict['number of likes'] = i[1]
 		a.append(mydict)
 
 @app.route("/hitsongsoftheweek")
 def hitsongsoftheweek():
 	a = []
-	query = "select songtitle, count(songtitle) from play where datediff(curdate(),dateplayed) <= 7 group by(songtitle) order by count(songtitle) desc limit 5;"
+	query = "select play.songtitle, count(likesong.songtitle), count(play.songtitle) from play inner join likesong on play.artist = likesong.artist and play.songtitle = likesong.songtitle and play.username = likesong.username where datediff(curdate(),dateplayed) <= 7 group by(play.songtitle) order by count(likesong.songtitle) desc, count(play.songtitle) asc limit 5;"
 	cursor.execute(query)
 	addtolist9(cursor, a)
 	jsonObj = json.dumps(a)
@@ -399,7 +401,8 @@ def addtolist10(cur,a,querytype):
 			mydict['release date'] = str(i[1])
 		elif(querytype==2):
 			mydict['title'] = i[0]
-			mydict['times played'] = i[1]
+			mydict['times played'] = i[2]
+			mydict['number of likes'] = i[1]
 		a.append(mydict)
 
 @app.route("/suggestonfavorite")
@@ -410,7 +413,7 @@ def suggestonfavorite():
 	query = "select song.title, releasedate from song inner join album on song.artist = album.artist and song.albumtitle = album.title where genre = '" + favoritegenre + "' order by releasedate desc limit 5;"
 	cursor.execute(query)
 	addtolist10(cursor, a,1)
-	query = "select songtitle, count(songtitle) from play inner join album on play.albumtitle = album.title and play.artist = album.artist where genre = '" + favoritegenre + "' group by songtitle order by count(songtitle) desc limit 5;"
+	query = "select play.songtitle, count(likesong.songtitle), count(play.songtitle) from play inner join album inner join likesong on play.albumtitle = album.title and play.artist = album.artist and play.artist = likesong.artist and play.songtitle = likesong.songtitle and play.username = likesong.username where genre = '" + favoritegenre + "' group by songtitle order by count(likesong.songtitle) desc, count(play.songtitle) asc limit 5;"
 	cursor.execute(query)
 	addtolist10(cursor, a,2)
 	jsonObj = json.dumps(a)
@@ -430,7 +433,7 @@ def recommendbyplaylist():
 	name = request.args.get("name")
 	owner = request.args.get("owner")
 	maingenre = mainPlaylistGenre(name, owner)
-	query = "select song.title, song.artist, genre from song inner join album on song.albumtitle = album.title where genre = '" + maingenre + "' and (song.title not in (select songtitle from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "') or song.artist not in (select artist from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "')) order by RAND() limit 2;"
+	query = "select song.title, song.artist, genre from song inner join album on song.albumtitle = album.title and song.artist = album.artist where genre = '" + maingenre + "' and (song.title not in (select songtitle from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "') or song.artist not in (select artist from addsong where playlisttitle = '" + str(name) + "' and playlistowner = '" + str(owner) + "')) order by RAND() limit 2;"
 	cursor.execute(query)
 	addtolist11(cursor, a)
 	jsonObj = json.dumps(a)
@@ -440,20 +443,19 @@ def recommendbyplaylist():
 
 def addtolist12(cur,a):
 	for i in cur:
-		#mydict = {}
 		a.append(i[0])
 
 @app.route("/fans")
 def fans():
 	a=[]
 	artist = request.args.get("username")
-	artistgenra = mainArtistGenre(artist)
-	query = "select play.username , count(songtitle) as cnt from play inner join song on play.songtitle = song.title where play.artist ='"+artist+"' group by play.username having cnt >= 10 order by cnt desc;"
+	artistgenre = mainArtistGenre(artist)
+	query = "select play.username , count(songtitle) as cnt from play inner join song on play.songtitle = song.title and play.artist = song.artist where play.artist ='"+artist+"' group by play.username having cnt >= 10 order by cnt desc;"
 	cursor.execute(query)
 	addtolist12(cursor, a)
 	b=[]
 	for i in a:
-		if(favoritelistenergenre(i) == artistgenra):
+		if(favoritelistenergenre(i) == artistgenre):
 			mydict = {}
 			mydict['listener'] = i
 			b.append(mydict)
@@ -968,6 +970,7 @@ def signup():
 
 	salt = generatesalt()
 	password = generatepassword(password, salt)
+	personalanswer = generatepassword(personalanswer, salt)
 
 	query = "insert into user values('" + username + "','" + email + "','" + nationality + "','" + password + "','" + personalquestion + "','" + personalanswer + "',curdate(),'" + salt + "');"
 	cursor.execute(query)
