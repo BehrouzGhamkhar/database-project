@@ -75,7 +75,7 @@ def sendaccdelemail(username):
 		Best wishes,
 		The fumdbproject admin
 		'''
-		sendemail(i[0], messagetext,"Artist Account Approved!")
+		sendemail(i[0], messagetext,"Account Deleted")
 
 def senddeletesongemail(artist,songtitle):
 	query = "select  artisticname, email from artist inner join user on user.username = artist.username where user.username = '"+ artist +"';"
