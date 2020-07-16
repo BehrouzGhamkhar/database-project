@@ -1185,6 +1185,26 @@ def login():
 	else: #if password is wrong
 		return "Wrong password!", 406
 
+@app.route("/passwordrecovery",methods=["POST"])
+def passwordrecovery():
+	username = request.args.get("username")
+	password = request.args.get("password")
+	personalanswer = request.args.get("personalanswer")
+	query = "select personalanswer,salt from user where username = '" + username + "';"
+	cursor.execute(query)
+	for i in cursor:
+		if(checkpassword(personalanswer,i[1],i[0])):
+			if(checkwords(password)):
+				password = generatepassword(password, i[1])
+				query = "update user set password = '" + password + "' where username = '" + username + "';"
+				cursor.execute(query)
+				db.commit()
+				return "Password changed successfully.", 201
+			else:
+				return "Invalid password, please choose another one", 406
+		else:
+			return "Invalid answer!", 406
+
 def checkplaylistcreation(title,username): #Checks if the user can create another playlist
 	query = "select username from premium where username = '" + username + "';"
 	cursor.execute(query)
