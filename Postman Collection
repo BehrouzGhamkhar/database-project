@@ -1,0 +1,1661 @@
+{
+	"info": {
+		"_postman_id": "d20f790d-b069-4bd3-b121-6c276966699d",
+		"name": "FUM Database Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/signup?username=admin&email=fumdbprojectadmin@gmail.com&nationality=iran&password=adminpassword&personalquestion=What is your favorite color?&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=ali&email=alijfri99@gmail.com&nationality=iran&password=654321&personalquestion=What is your favorite color?&personalanswer=blue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "email",
+							"value": "alijfri99@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "654321"
+						},
+						{
+							"key": "personalquestion",
+							"value": "What is your favorite color?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "blue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=behrooz&email=behroozghamkhar@gmail.com&nationality=iran&password=123456&personalquestion=What is your favorite color?&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=behrooz&email=behroozghamkhar@gmail.com&nationality=iran&password=123456&personalquestion=What is your favorite color?&personalanswer=blue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "email",
+							"value": "behroozghamkhar@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						},
+						{
+							"key": "personalquestion",
+							"value": "What is your favorite color?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "blue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=admin&email=fumdbprojectadmin@gmail.com&nationality=iran&password=adminpassword&personalquestion=What is your favorite color?&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=ali&email=alijfri99@gmail.com&nationality=iran&password=654321&personalquestion=What is your favorite color?&personalanswer=blue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "email",
+							"value": "alijfri99@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "654321"
+						},
+						{
+							"key": "personalquestion",
+							"value": "What is your favorite color?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "blue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=admin&email=fumdbprojectadmin@gmail.com&nationality=iran&password=adminpassword&personalquestion=What is your favorite color?&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/asartist?username=ali&artisticname=alijfri&debutyear=2020",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asartist"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "artisticname",
+							"value": "alijfri"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "debutyear",
+							"value": "2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/asartist?username=a2li&artisticname=alijfri&debutyear=2020",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/asartist?artisticname=alijfri&debutyear=2020&username=a2li",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"asartist"
+					],
+					"query": [
+						{
+							"key": "artisticname",
+							"value": "alijfri"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "debutyear",
+							"value": "2020"
+						},
+						{
+							"key": "username",
+							"value": "a2li"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/login?username=ali&password=654321",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/login?username=ali&password=654321",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "654321"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/login?username=behrooz&password=123456",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/login?username=behrooz&password=123456",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/aslistener?username=behrooz&firstname=behrooz&lastname=ghamkhar&yearofbirth=1999",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/aslistener?username=behrooz&firstname=behrooz&lastname=ghamkhar&yearofbirth=1999",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"aslistener"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "firstname",
+							"value": "behrooz"
+						},
+						{
+							"key": "lastname",
+							"value": "ghamkhar"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "yearofbirth",
+							"value": "1999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/aslistener?username=behr2ooz&firstname=behrooz&lastname=ghamkhar&yearofbirth=1999",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/aslistener?firstname=behrooz&lastname=ghamkhar&yearofbirth=1999&username=behr2ooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"aslistener"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "behrooz"
+						},
+						{
+							"key": "lastname",
+							"value": "ghamkhar"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "yearofbirth",
+							"value": "1999"
+						},
+						{
+							"key": "username",
+							"value": "behr2ooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/search?name=al",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/search?name=al",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "al"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/search?name=a",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/search?name=a",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=reza&email=rezadbprj@gmail.com&nationality=iran&password=rezapass&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=reza&email=rezadbprj@gmail.com&nationality=iran&password=rezapass&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "reza"
+						},
+						{
+							"key": "email",
+							"value": "rezadbprj@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "rezapass"
+						},
+						{
+							"key": "personalquestion",
+							"value": "Who is your favorite actor?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "Robert De Niro"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/search?name=a",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/search?name=a",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/releasealbum?title=toxicity&artist=ali&genre=alternative+metal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/releasealbum?title=toxicity&artist=ali&genre=alternative+metal",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"releasealbum"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "alternative+metal"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/unapprovedartists",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/unapprovedartists",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"unapprovedartists"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/approveartist?username=ali",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/approveartist?username=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"approveartist"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/unapproveartist?username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/unapproveartist?username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"unapproveartist"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/releasealbum?title=toxicity&artist=ali&genre=alternative+metal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/releasealbum?title=toxicity&artist=ali&genre=alternative+metal",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"releasealbum"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "alternative+metal"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addsongtoalbum?title=chop+suey!&albumtitle=toxicity&artist=ali&length=210",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addsongtoalbum?title=chop+suey!&albumtitle=toxicity&artist=ali&length=210",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addsongtoalbum"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "albumtitle",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "length",
+							"value": "210"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addsongtoalbum?title=my+favorite+things&albumtitle=my+favorite+things&artist=ali&length=230&genre=pop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addsongtoalbum?title=my+favorite+things&albumtitle=my+favorite+things&artist=ali&length=230&genre=pop",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addsongtoalbum"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "my+favorite+things"
+						},
+						{
+							"key": "albumtitle",
+							"value": "my+favorite+things"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "length",
+							"value": "230"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "genre",
+							"value": "pop"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/follow?username=behrooz&target=ali",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/follow?username=behrooz&target=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"follow"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "target",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/follow?username=ali&target=behrooz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/follow?username=ali&target=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"follow"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "target",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/login?username=ali&password=654321",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/login?username=ali&password=654321",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "654321"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/playsong?username=behrooz&songtitle=my favorite things&albumtitle=my favorite things&artist=ali",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/playsong?username=behrooz&songtitle=my favorite things&albumtitle=my favorite things&artist=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"playsong"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "songtitle",
+							"value": "my favorite things"
+						},
+						{
+							"key": "albumtitle",
+							"value": "my favorite things"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addsongtoplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&albumtitle=toxicity&artist=ali&adder=behrooz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addsongtoplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&albumtitle=toxicity&artist=ali&adder=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addsongtoplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "albumtitle",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "adder",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/view?username=ali",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/view?username=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"view"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/removesongfromplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&artist=ali&username=behrooz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/removesongfromplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&artist=ali&username=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"removesongfromplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/removesongfromplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&artist=ali&username=ali",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/removesongfromplaylist?playlist=myplaylist&owner=behrooz&songtitle=chop+suey!&artist=ali&username=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"removesongfromplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=reza&email=rezadbprj@gmail.com&nationality=iran&password=rezapass&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=reza&email=rezadbprj@gmail.com&nationality=iran&password=rezapass&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "reza"
+						},
+						{
+							"key": "email",
+							"value": "rezadbprj@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "rezapass"
+						},
+						{
+							"key": "personalquestion",
+							"value": "Who is your favorite actor?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "Robert De Niro"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/aslistener?username=reza&firstname=reza&lastname=abbaszadeh&yearofbirth=1999",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/aslistener?username=reza&firstname=reza&lastname=abbaszadeh&yearofbirth=1999",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"aslistener"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "reza"
+						},
+						{
+							"key": "firstname",
+							"value": "reza"
+						},
+						{
+							"key": "lastname",
+							"value": "abbaszadeh"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "yearofbirth",
+							"value": "1999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addusertoplaylist?playlist=myplaylist&owner=behrooz&adder=behrooz&username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addusertoplaylist?playlist=myplaylist&owner=behrooz&adder=behrooz&username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addusertoplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "adder",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addusertoplaylist?playlist=myplaylist&owner=behrooz&adder=behrooz&username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addusertoplaylist?playlist=myplaylist&owner=behrooz&adder=behrooz&username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addusertoplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "adder",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addsongtoplaylist?playlist=myplaylist&owner=behrooz&songtitle=my+favorite+things&albumtitle=my+favorite+things&artist=ali&adder=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addsongtoplaylist?playlist=myplaylist&owner=behrooz&songtitle=my+favorite+things&albumtitle=my+favorite+things&artist=ali&adder=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addsongtoplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "songtitle",
+							"value": "my+favorite+things"
+						},
+						{
+							"key": "albumtitle",
+							"value": "my+favorite+things"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "adder",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/likeplaylist?playlist=myplaylist&owner=behrooz&username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/likeplaylist?playlist=myplaylist&owner=behrooz&username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"likeplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"reportsong"
+					],
+					"query": [
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "albumtitle",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=reza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=reza",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"reportsong"
+					],
+					"query": [
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "albumtitle",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "reza"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/buypremium?username=behrooz&duration=25&cardnumber=12345&cardexpdate=2020-07-17",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/buypremium?username=behrooz&cardexpdate=2020-07-17&duration=25&cardnumber=12345",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"buypremium"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "cardexpdate",
+							"value": "2020-07-17"
+						},
+						{
+							"key": "duration",
+							"value": "25"
+						},
+						{
+							"key": "cardnumber",
+							"value": "12345"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/buypremium?username=behrooz&duration=25&cardnumber=1234&cardexpdate=2020-07-17",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/buypremium?cardnumber=1234&username=behrooz&cardexpdate=2020-07-17&duration=25",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"buypremium"
+					],
+					"query": [
+						{
+							"key": "cardnumber",
+							"value": "1234"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "cardexpdate",
+							"value": "2020-07-17"
+						},
+						{
+							"key": "duration",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/buypremium?username=behrooz&duration=20&cardnumber=1234&cardexpdate=2020-07-17",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/buypremium?duration=20&cardnumber=1234&username=behrooz&cardexpdate=2020-07-17",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"buypremium"
+					],
+					"query": [
+						{
+							"key": "duration",
+							"value": "20"
+						},
+						{
+							"key": "cardnumber",
+							"value": "1234"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "cardexpdate",
+							"value": "2020-07-17"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/getreportlist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getreportlist",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getreportlist"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/ignorereportedsong?artist=ali&songtitle=chop+suey!",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/ignorereportedsong?artist=ali&songtitle=chop+suey!",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ignorereportedsong"
+					],
+					"query": [
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=behrooz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/reportsong?songtitle=chop+suey!&albumtitle=toxicity&artist=ali&username=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"reportsong"
+					],
+					"query": [
+						{
+							"key": "songtitle",
+							"value": "chop+suey!"
+						},
+						{
+							"key": "albumtitle",
+							"value": "toxicity"
+						},
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/deletereportedsong?artist=ali&title=chop+suey!",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/deletereportedsong?artist=ali&title=chop+suey!",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deletereportedsong"
+					],
+					"query": [
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "chop+suey!"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
