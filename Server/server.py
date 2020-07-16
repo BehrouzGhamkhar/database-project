@@ -19,6 +19,20 @@ db = mysql.connector.connect(
 
 cursor = db.cursor(buffered=True)
 
+def checkwords(myinput):
+	if(len(myinput)<8):
+		return False
+
+	hasDigit = False
+	hasAlpha = False
+
+	for i in myinput:
+		if(i.isdigit()):
+			hasDigit = True
+		if(i.isalpha):
+			hasAlpha = True
+
+	return(hasAlpha and hasDigit)
 
 def sendemail(receive,message,subject):
 	port = 465
@@ -1046,6 +1060,9 @@ def signup():
 		a.append(i[0])
 	if(a):
 		return "This email already exists.", 406
+
+	if(checkwords(password)==False):
+		return "Invalid password!", 406
 
 	salt = generatesalt()
 	password = generatepassword(password, salt)
