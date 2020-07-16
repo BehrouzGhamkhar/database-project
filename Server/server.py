@@ -748,6 +748,8 @@ def deletesongfromalbum():
 def follow():
 	username = request.args.get("username")
 	target = request.args.get("target")
+	if(username==target):
+		return "You can't follow yourself!", 406
 	query = "insert into follow values('"+username+"','"+target+"');"
 	cursor.execute(query)
 	db.commit()
@@ -1204,6 +1206,29 @@ def passwordrecovery():
 				return "Invalid password, please choose another one", 406
 		else:
 			return "Invalid answer!", 406
+
+@app.route("/editprofile", methods=["POST"])
+def editprofile():
+	username = request.args.get("username")
+	email = request.args.get("email")
+	nationality = request.args.get("nationality")
+	password = request.args.get("password")
+	personalquestion = request.args.get("personalquestion")
+	personalanswer = request.args.get("personalanswer")
+	salt = ""
+
+	query = "select salt from user where username = '" + username + "';"
+	cursor.execute(query)
+	for i in cursor:
+		salt = i[0]
+
+	password = generatepassword(password, salt)
+	personalanswer = generatepassword(personalanswer, salt)
+
+	query = "update user set email = '" + email + "', nationality = '" + nationality + "', password = '" + password + "', personalquestion = '" + personalquestion + "', personalanswer = '" + personalanswer + "' where username = '" + username + "';"
+	cursor.execute(query)
+	db.commit()
+	return "Account edited successfully", 201
 
 def checkplaylistcreation(title,username): #Checks if the user can create another playlist
 	query = "select username from premium where username = '" + username + "';"
