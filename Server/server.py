@@ -1036,7 +1036,12 @@ def buypremium():
 		return response + "Premium account has been bought successfully", 201
 
 	except :
-		return "You don't have permission to buy premium account."
+		query = "select number from creditcard;"
+		cursor.execute(query)
+		a = cursor.fetchall()
+		if(a):
+			return "Invalid credit card number", 406
+		return "You don't have permission to buy premium account.", 406
 	
 @app.route("/signup",methods=["POST"])
 def signup():
