@@ -45,7 +45,6 @@ CREATE TABLE `addsong` (
 
 LOCK TABLES `addsong` WRITE;
 /*!40000 ALTER TABLE `addsong` DISABLE KEYS */;
-INSERT INTO `addsong` VALUES ('2001-05-02','myplaylist','behrouz','bliever','evolve','ali',NULL),('2001-05-02','myplaylist','behrouz','gun','evolve','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw1','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','abitw2','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','comfortably numb','the wall','ali',NULL),('2003-12-12','myplaylist','behrouz','empty spaces','the wall','ali',NULL),('2004-12-14','alijfriplaylist','ali','guns','evolve','ali',NULL),('2020-07-13','myplaylist','behrouz','aslsp','the wall','ali',NULL),('2020-07-15','alijfriplaylist','ali','aslsp','the wall','ali','reza'),('2020-07-15','alijfriplaylist','ali','chop suey!','toxicity','ali','reza');
 /*!40000 ALTER TABLE `addsong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +99,7 @@ CREATE TABLE `album` (
 
 LOCK TABLES `album` WRITE;
 /*!40000 ALTER TABLE `album` DISABLE KEYS */;
-INSERT INTO `album` VALUES ('bloom','behrouz','prog rock','2003-07-23'),('day 2','ali','pop-rock','2015-07-12'),('evolve','ali','pop-rock','2001-05-02'),('illumination','reza','pop-rock','2010-07-18'),('in rainbows','reza','alternative rock','2020-07-10'),('meddle','reza','prog rock','1971-05-07'),('road','behrouz','pop-rock','2012-09-17'),('the diving board','reza','pop-rock','2013-07-18'),('the wall','ali','prog rock','2027-12-07'),('toxicity','ali','alt metal','1999-10-10'),('wish you were here','behrouz','prog rock','2007-12-12');
+INSERT INTO `album` VALUES ('toxicity','ali','alternative metal','2020-07-16');
 /*!40000 ALTER TABLE `album` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +127,7 @@ CREATE TABLE `artist` (
 
 LOCK TABLES `artist` WRITE;
 /*!40000 ALTER TABLE `artist` DISABLE KEYS */;
-INSERT INTO `artist` VALUES ('ali','dragons',1900,1),('behrouz','yegane',1996,1),('bot3','lilbig',1999,0),('reza','reza_absz',2020,1);
+INSERT INTO `artist` VALUES ('ali','alijfri',2020,1);
 /*!40000 ALTER TABLE `artist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +154,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES (1111,'2020-07-25','fahmin');
+INSERT INTO `creditcard` VALUES (1234,'2020-07-17','behrooz');
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +182,7 @@ CREATE TABLE `follow` (
 
 LOCK TABLES `follow` WRITE;
 /*!40000 ALTER TABLE `follow` DISABLE KEYS */;
-INSERT INTO `follow` VALUES ('ahmad','reza'),('ali','behrouz'),('ali','reza'),('behrouz','ali'),('behrouz','reza'),('bot3','ahmad'),('bot3','reza'),('bot4','ahmad'),('bot4','reza'),('bot6','reza'),('reza','ali');
+INSERT INTO `follow` VALUES ('ali','behrooz'),('behrooz','ali');
 /*!40000 ALTER TABLE `follow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,6 +211,7 @@ CREATE TABLE `likeplaylist` (
 
 LOCK TABLES `likeplaylist` WRITE;
 /*!40000 ALTER TABLE `likeplaylist` DISABLE KEYS */;
+INSERT INTO `likeplaylist` VALUES ('ali','myplaylist','behrooz');
 /*!40000 ALTER TABLE `likeplaylist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +240,6 @@ CREATE TABLE `likesong` (
 
 LOCK TABLES `likesong` WRITE;
 /*!40000 ALTER TABLE `likesong` DISABLE KEYS */;
-INSERT INTO `likesong` VALUES ('TheBigSheikh','gun','evolve','ali');
 /*!40000 ALTER TABLE `likesong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +267,7 @@ CREATE TABLE `listener` (
 
 LOCK TABLES `listener` WRITE;
 /*!40000 ALTER TABLE `listener` DISABLE KEYS */;
-INSERT INTO `listener` VALUES ('ali','ali','jafari',1999),('behrouz','behrouz','ghamkhar',1999),('fahmin','ahmads','zoghi',1999),('reza','reza','abbaszadeh',1999),('TheBigSheikh','amirhossein','sheikh',1999);
+INSERT INTO `listener` VALUES ('behrooz','behrooz','ghamkhar',1999);
 /*!40000 ALTER TABLE `listener` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,7 +297,6 @@ CREATE TABLE `play` (
 
 LOCK TABLES `play` WRITE;
 /*!40000 ALTER TABLE `play` DISABLE KEYS */;
-INSERT INTO `play` VALUES ('reza','2020-02-03 00:00:00','gun','evolve','ali'),('behrouz','2020-02-04 00:00:00','bliever','evolve','ali'),('ahmad','2020-02-04 00:00:00','guns','evolve','ali'),('reza','2020-02-03 09:30:00','chop suey!','toxicity','ali'),('reza','2020-02-03 10:00:00','chop suey!','toxicity','ali'),('behrouz','2020-03-05 00:00:00','bliever','evolve','ali'),('behrouz','2020-03-05 17:53:00','bliever','evolve','ali'),('ali','2020-05-07 00:00:00','guns','evolve','ali'),('ali','2018-05-03 00:00:00','chop suey!','toxicity','ali'),('reza','2020-07-05 10:00:00','gun','evolve','ali'),('reza','2020-07-05 10:05:00','gun','evolve','ali'),('reza','2020-07-05 10:10:00','gun','evolve','ali'),('reza','2020-07-05 10:15:00','gun','evolve','ali'),('reza','2020-07-05 10:20:00','gun','evolve','ali'),('reza','2020-07-05 10:25:00','gun','evolve','ali'),('ali','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-05 10:25:00','gun','evolve','ali'),('behrouz','2020-07-06 10:25:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:27:00','chop suey!','toxicity','ali'),('behrouz','2020-07-06 10:28:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-07 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-08 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-10 10:20:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','chop suey!','toxicity','ali'),('ali','2020-07-09 10:30:00','bliever','evolve','ali'),('ahmad','2018-02-02 00:00:00','the art teacher','road','behrouz'),('ahmad','2018-02-02 00:00:00','going to a town','road','behrouz'),('reza','2020-07-09 00:00:00','aslsp','the wall','ali'),('ahmad','2020-07-10 00:00:00','aslsp','the wall','ali'),('behrouz','2020-07-11 00:00:00','aslsp','the wall','ali'),('TheBigSheikh','2020-07-11 00:00:00','bliever','evolve','ali'),('TheBigSheikh','2020-07-14 00:00:00','gun','evolve','ali'),('ahmad','2020-07-14 00:00:00','gun','evolve','ali'),('ahmad','2020-07-14 00:00:00','bliever','evolve','ali'),('ahmad','2020-07-14 00:00:00','chop suey!','toxicity','ali'),('ahmad','2020-07-14 00:00:00','aslsp','the wall','ali'),('ahmad','2020-07-14 00:00:00','aslsp','the wall','ali'),('fahmin','2020-07-14 03:17:04','bliever','evolve','ali'),('fahmin','2020-07-14 03:17:05','bliever','evolve','ali');
 /*!40000 ALTER TABLE `play` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +322,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
-INSERT INTO `playlist` VALUES ('alijfriplaylist','ali'),('playlist1','ali'),('playlist2','ali'),('playlist3','ali'),('myplaylist','behrouz');
+INSERT INTO `playlist` VALUES ('myplaylist','behrooz'),('myplaylist2','behrooz'),('myplaylist3','behrooz'),('myplaylist4','behrooz');
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,7 +348,7 @@ CREATE TABLE `premium` (
 
 LOCK TABLES `premium` WRITE;
 /*!40000 ALTER TABLE `premium` DISABLE KEYS */;
-INSERT INTO `premium` VALUES (40,'behrouz','2020-06-03'),(40,'reza','2020-07-04'),(40,'TheBigSheikh','2020-07-14'),(40,'TheBigSheikh','2020-07-14'),(140,'fahmin','2020-07-15');
+INSERT INTO `premium` VALUES (45,'behrooz','2020-07-16');
 /*!40000 ALTER TABLE `premium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,7 +377,6 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES ('aslsp','the wall','ali','behrouz'),('aslsp','the wall','ali','behrouz'),('aslsp','the wall','ali','behrouz');
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,7 +404,6 @@ CREATE TABLE `song` (
 
 LOCK TABLES `song` WRITE;
 /*!40000 ALTER TABLE `song` DISABLE KEYS */;
-INSERT INTO `song` VALUES ('abitw1','the wall','ali',330),('abitw2','the wall','ali',330),('aslsp','the wall','ali',400000),('bliever','evolve','ali',204),('bohemian rhapsody','road','behrouz',370),('chop suey!','toxicity','ali',210),('comfortably numb','the wall','ali',350),('dont stop me now','road','behrouz',290),('empty spaces','the wall','ali',330),('going to a town','road','behrouz',300),('gun','evolve','ali',204),('guns','evolve','ali',224),('hey you','the wall','ali',380),('im still standing','bloom','behrouz',247),('in the flesh','the wall','ali',450),('invincible','bloom','behrouz',335),('run like hell','the wall','ali',390),('the art teacher','road','behrouz',280),('the trial','the wall','ali',410),('weird fishes','in rainbows','reza',340),('wish you were here','wish you were here','behrouz',247);
 /*!40000 ALTER TABLE `song` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,10 +418,11 @@ CREATE TABLE `user` (
   `username` varchar(20) NOT NULL,
   `email` varchar(40) DEFAULT NULL,
   `nationality` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
-  `personalquestion` varchar(20) DEFAULT NULL,
-  `personalanswer` varchar(20) DEFAULT NULL,
+  `password` varchar(35) DEFAULT NULL,
+  `personalquestion` varchar(50) DEFAULT NULL,
+  `personalanswer` varchar(35) DEFAULT NULL,
   `signupdate` date DEFAULT NULL,
+  `salt` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -437,7 +434,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','fumdbprojectadmin@gmail.com','iran','adminpassword','adminquestion','adminanswer','2020-07-14'),('ahmad','2@gma','usa','21','www','qqq','2020-07-08'),('ali','a@gmail.com','iran','123','que','ans','2020-07-08'),('behrouz','behrooz@gmail.com','iran','pss','ques','answ','2020-07-08'),('bot3','b3@gmail.com','iran','pass','q','a','2020-07-13'),('bot4','b4@gmail.com','iran','pass','q','a','2020-07-13'),('bot6','b6@gmail.com','iran','pass','q','a','2020-07-13'),('fahmin','f@yahoo.com','iran','1231','1wew','ssa','2020-07-14'),('reza','r@gmail','zimbabwe','12','qw','ssw','2020-07-08'),('TheBigSheikh','s@gmail.com','iran','123311','qwew','wwwww','2020-07-09');
+INSERT INTO `user` VALUES ('admin','fumdbprojectadmin@gmail.com','iran','b3ce39987096dade3a1d227b563accc3','What is your favorite color?','c974ac9be4f3113f95ae45ff42a5ebd0','2020-07-16','Y*cIb'),('ali','alijfri99@gmail.com','iran','208feeb4101d53ccdef6544ba5fa8d29','What is your favorite color?','b60434f45f57c75a184477afc9153753','2020-07-16','}q9Xl'),('behrooz','behroozghamkhar@gmail.com','iran','4bea6e34cf6a5dd73b245a997cc0ffa5','What is your favorite color?','117170283903f39c056232d90884a2be','2020-07-16','TD/>C');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -450,4 +447,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-15 22:10:41
+-- Dump completed on 2020-07-16  5:19:15
