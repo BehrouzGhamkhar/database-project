@@ -41,13 +41,28 @@ def sendnewsongemail(title,albumtitle,artist):
 	for i in cursor:
 		messagetext = f'''\
 		Dear {i[0]},
-		An artist you are following, {artist}, has released a new song. The song is called '{title}', from album '{albumtitle}'.
+		An artist you are following, {artist}, has released a new song. The song is called '{title}', from the album '{albumtitle}'.
 		We thought you might want to know.
 
 		Best wishes,
 		The fumdbproject admin
 		'''
 		sendemail(i[1], messagetext,"New Song!")
+
+def sendapprovedemail(artist):
+	query = "select  artisticname, email from user inner join artist on user.username = artist.username where user.username = '"+ artist +"';"
+	cursor.execute(query)
+	for i in cursor:
+		messagetext = f'''\
+		Dear {i[0]},
+		Your artist account was approved.
+		We thought you might want to know.
+
+		Best wishes,
+		The fumdbproject admin
+		'''
+		sendemail(i[1], messagetext,"Artist Account Approved!")
+
 
 def spec1(cur,a):
 	for i in cur:
@@ -1199,6 +1214,7 @@ def approveartist():
 	query = "update artist set isapproved = 1 where username = '"+ username +"';"
 	cursor.execute(query)
 	db.commit()
+	sendapprovedemail(username)
 	return "Artist approved successfully" , 201
 
 @app.route("/unapproveartist",methods=["POST"])
