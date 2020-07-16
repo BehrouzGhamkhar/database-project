@@ -72,6 +72,7 @@ CREATE TABLE `adduser` (
 
 LOCK TABLES `adduser` WRITE;
 /*!40000 ALTER TABLE `adduser` DISABLE KEYS */;
+INSERT INTO `adduser` VALUES ('ali','myplaylist4','behrooz');
 /*!40000 ALTER TABLE `adduser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +323,7 @@ CREATE TABLE `playlist` (
 
 LOCK TABLES `playlist` WRITE;
 /*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
-INSERT INTO `playlist` VALUES ('myplaylist','behrooz'),('myplaylist2','behrooz'),('myplaylist3','behrooz'),('myplaylist4','behrooz');
+INSERT INTO `playlist` VALUES ('myplaylist','behrooz'),('myplaylist2','behrooz'),('myplaylist3','behrooz'),('myplaylist4','behrooz'),('premiumplaylist','behrooz');
 /*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +349,7 @@ CREATE TABLE `premium` (
 
 LOCK TABLES `premium` WRITE;
 /*!40000 ALTER TABLE `premium` DISABLE KEYS */;
-INSERT INTO `premium` VALUES (45,'behrooz','2020-07-16');
+INSERT INTO `premium` VALUES (26,'behrooz','2020-07-16');
 /*!40000 ALTER TABLE `premium` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -437,6 +438,34 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES ('admin','fumdbprojectadmin@gmail.com','iran','b3ce39987096dade3a1d227b563accc3','What is your favorite color?','c974ac9be4f3113f95ae45ff42a5ebd0','2020-07-16','Y*cIb'),('ali','alijfri99@gmail.com','iran','208feeb4101d53ccdef6544ba5fa8d29','What is your favorite color?','b60434f45f57c75a184477afc9153753','2020-07-16','}q9Xl'),('behrooz','behroozghamkhar@gmail.com','iran','4bea6e34cf6a5dd73b245a997cc0ffa5','What is your favorite color?','117170283903f39c056232d90884a2be','2020-07-16','TD/>C');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'database_project'
+--
+/*!50106 SET @save_time_zone= @@TIME_ZONE */ ;
+/*!50106 DROP EVENT IF EXISTS `checkpremium` */;
+DELIMITER ;;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;;
+/*!50003 SET character_set_client  = cp850 */ ;;
+/*!50003 SET character_set_results = cp850 */ ;;
+/*!50003 SET collation_connection  = cp850_general_ci */ ;;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;;
+/*!50003 SET @saved_time_zone      = @@time_zone */ ;;
+/*!50003 SET time_zone             = 'SYSTEM' */ ;;
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `checkpremium` ON SCHEDULE EVERY 20 SECOND STARTS '2020-07-16 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO begin
+update premium set duration = duration - 1;
+delete from premium where duration = 0;
+end */ ;;
+/*!50003 SET time_zone             = @saved_time_zone */ ;;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;;
+/*!50003 SET character_set_results = @saved_cs_results */ ;;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;;
+DELIMITER ;
+/*!50106 SET TIME_ZONE= @save_time_zone */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -447,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-16  5:19:15
+-- Dump completed on 2020-07-16 20:52:47

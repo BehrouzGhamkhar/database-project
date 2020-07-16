@@ -1655,6 +1655,376 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "localhost:5000/deletereportedsong?artist=ali&title=my+favorite+things",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/deletereportedsong?artist=ali&title=my+favorite+things",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deletereportedsong"
+					],
+					"query": [
+						{
+							"key": "artist",
+							"value": "ali"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "my+favorite+things"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/signup?username=ali&email=alijfri99@gmail.com&nationality=iran&password=alijfri123&personalquestion=What is your favorite color?&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/signup?username=ali&email=alijfri99@gmail.com&nationality=iran&password=alijfri123&personalquestion=What is your favorite color?&personalanswer=blue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "email",
+							"value": "alijfri99@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						},
+						{
+							"key": "password",
+							"value": "alijfri123"
+						},
+						{
+							"key": "personalquestion",
+							"value": "What is your favorite color?"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "blue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/passwordrecovery?username=ali&password=alijfri321&personalanswer=blue",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/passwordrecovery?username=ali&password=alijfri321&personalanswer=blue",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"passwordrecovery"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "password",
+							"value": "alijfri321"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "personalanswer",
+							"value": "blue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/editprofile?username=ali&password=blah1234&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro&email=alijfri99@gmail.com&nationality=iran",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/editprofile?username=ali&password=blah1234&personalquestion=Who is your favorite actor?&personalanswer=Robert De Niro&email=alijfri99@gmail.com&nationality=iran",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"editprofile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ali"
+						},
+						{
+							"key": "password",
+							"value": "blah1234"
+						},
+						{
+							"key": "personalquestion",
+							"value": "Who is your favorite actor?"
+						},
+						{
+							"key": "personalanswer",
+							"value": "Robert De Niro"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "alijfri99@gmail.com"
+						},
+						{
+							"key": "nationality",
+							"value": "iran"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/getplaylists?username=behrooz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getplaylists?username=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getplaylists"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/getplaylists?username=ali",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getplaylists?username=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getplaylists"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/addusertoplaylist?playlist=myplaylist4&owner=behrooz&adder=behrooz&username=ali",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/addusertoplaylist?playlist=myplaylist4&owner=behrooz&adder=behrooz&username=ali",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"addusertoplaylist"
+					],
+					"query": [
+						{
+							"key": "playlist",
+							"value": "myplaylist4"
+						},
+						{
+							"key": "owner",
+							"value": "behrooz"
+						},
+						{
+							"key": "adder",
+							"value": "behrooz"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "ali"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/buypremium?username=behrooz&duration=20&cardnumber=1234&cardexpdate=2020-07-20",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/buypremium?username=behrooz&duration=20&cardexpdate=2020-07-20&cardnumber=1234",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"buypremium"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "behrooz"
+						},
+						{
+							"key": "duration",
+							"value": "20"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "cardexpdate",
+							"value": "2020-07-20"
+						},
+						{
+							"key": "cardnumber",
+							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/getplaylists?username=behrooz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/getplaylists?username=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"getplaylists"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/createplaylist?title=premiumplaylist&username=behrooz",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/createplaylist?title=premiumplaylist&username=behrooz",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"createplaylist"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "premiumplaylist"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "behrooz"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

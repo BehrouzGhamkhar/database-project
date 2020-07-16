@@ -228,7 +228,7 @@ def addtolist1(cur,result,queryType):
 			mydict["type"] = i[1]
 			mydict["artist"] = i[2]
 			result.append(mydict)
-		elif(queryType==6):
+		elif(queryType==5):
 			mydict = {}
 			mydict["name"] = i[0]
 			mydict["type"] = i[1]
@@ -635,6 +635,20 @@ def consistentuser():
 	return jsonObj
 
 #User Specs
+
+@app.route("/getplaylists")
+def getplaylists():
+	username = request.args.get("username")
+	query = "(select title, 'created' as source from playlist where username = '" + username + "') union (select playlisttitle, 'added to' as source from adduser where username = '" + username + "') union (select playlisttitle, 'liked' as source from likeplaylist where username = '" + username + "');"
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		mydict = {}
+		mydict['playlist title'] = i[0]
+		mydict['source'] = i[1]
+		a.append(mydict)
+
+	return json.dumps(a)
 
 @app.route("/releasealbum",methods=["POST"])
 def releasealbum():
