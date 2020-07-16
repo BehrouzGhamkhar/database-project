@@ -14,7 +14,7 @@ db = mysql.connector.connect(
         database = "database_project"
     )
 
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 
 def spec1(cur,a):
 	for i in cur:
@@ -36,9 +36,7 @@ def checkpassword(inputpassword,salt,targetpassword):
 def playlistexists(title,username): #Check if the playlsit exists
 	query = "select title from playlist where title = '" + title + "' and username = '" + username + "';" #Check if the playlist exists
 	cursor.execute(query)
-	a = []
-	for i in cursor:
-		a.append(i)
+	a = cursor.fetchall()
 	if(not a):
 		return False
 	return True
@@ -130,12 +128,12 @@ def getfollowingcnt(username):
 
 def addtolist1(cur,result,queryType):
 	for i in cur:
-		if(queryType==1 or queryType==2 or queryType==3):
+		if(queryType==1 or queryType==2):
 			mydict = {}
 			mydict["name"] = i[0]
 			mydict["type"] = i[1]
 			result.append(mydict)
-		elif(queryType==4 or queryType==5):
+		elif(queryType==3 or queryType==4):
 			mydict = {}
 			mydict["name"] = i[0]
 			mydict["type"] = i[1]
@@ -153,24 +151,21 @@ def addtolist1(cur,result,queryType):
 def search():
 	a = []
 	name = request.args.get("name")
-	query = "select username,'user' as source from user where username like '%" + str(name) +  "%';"
-	cursor.execute(query)
-	addtolist1(cursor, a, 1)
 	query ="select username,'listener' as source from listener where firstname like '%" + str(name) +  "%' or lastname like '%" + str(name) +  "%';"
 	cursor.execute(query)
-	addtolist1(cursor, a, 2)
-	query = "select username,'artist' as source from artist where artisticname like '%" + str(name) +  "%';"
+	addtolist1(cursor, a, 1)
+	query = "select username,'artist' as source from artist where username like '%" + str(name) +  "%' or artisticname like '%" + str(name) + "%';"
 	cursor.execute(query)
-	addtolist1(cursor, a, 3)
+	addtolist1(cursor, a, 2)
 	query = "select title,'song' as source ,artist from song where title like '%" + str(name) +  "%';"
 	cursor.execute(query)
-	addtolist1(cursor, a, 4)
+	addtolist1(cursor, a, 3)
 	query = "select title,'album' as source ,artist from album where title like '%" + str(name) +  "%';"
 	cursor.execute(query)
-	addtolist1(cursor, a, 5)
+	addtolist1(cursor, a, 4)
 	query = "select title,'playlist' as source ,username from playlist where title like '%" + str(name) +  "%';"
 	cursor.execute(query)
-	addtolist1(cursor, a, 6)
+	addtolist1(cursor, a, 5)
 	jsonObj = json.dumps(a)
 	return jsonObj
 
@@ -642,7 +637,6 @@ def deletesongfromalbum():
 	title = request.args.get("title")
 	albumtitle = request.args.get("albumtitle")
 	artist = request.args.get("artist")
-	length = request.args.get("length")
 	
 	query = "select title,artist from album where title ='"+ albumtitle +"' and artist = '"+ artist +"';"
 	cursor.execute(query)
@@ -652,7 +646,7 @@ def deletesongfromalbum():
 	if(not a):
 		return "Album not found", 404
 
-	query = "delete from song where title = '"+ title +"' and albumtitle = '"+ albumtitle +"' and artist = '"+ artist +"' and length = '"+ length +"';"
+	query = "delete from song where title = '"+ title +"' and albumtitle = '"+ albumtitle +"' and artist = '"+ artist + "';"
 	cursor.execute(query)
 	db.commit()
 	return "Song deleted from album successfully" ,200
@@ -719,6 +713,16 @@ def playsong():
 	songtitle = request.args.get("songtitle")
 	albumtitle = request.args.get("albumtitle")
 	artist = request.args.get("artist")
+
+	query = "select title from song where title = '" + songtitle + "' and artist = '" + artist + "';" #Check if the song exists
+	cursor.execute(query)
+	a = []
+	for i in cursor:
+		a.append(i)
+		break
+	if(not a):
+		return "Song not found!", 404
+
 	query = "select username from premium where username = '"+ username +"';"
 	cursor.execute(query)
 	a = []
@@ -766,9 +770,7 @@ def addsongtoplaylist():
 	
 	query = "select songtitle from addsong where songtitle = '" + songtitle + "' and artist = '" + artist + "' and playlisttitle = '" + playlisttitle + "' and playlistowner = '" + playlistowner + "';"
 	cursor.execute(query)
-	a = []
-	for i in cursor:
-		a.append(i)
+	a = cursor.fetchall()
 	if(a):
 		return "This song already exists in this playlist!", 406
 
