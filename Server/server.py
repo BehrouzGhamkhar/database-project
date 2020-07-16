@@ -1,20 +1,53 @@
 from flask import Flask ,request
+from email.message import EmailMessage
 import mysql.connector
 import json
 import hashlib
 import random
 import string
+import smtplib, ssl
+
 
 app = Flask(__name__)
 
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "ghon",
+        password = "anymistake",
         database = "database_project"
     )
 
 cursor = db.cursor(buffered=True)
+
+
+def sendemail(receive,message,subject):
+	port = 465
+	sender = 'fumdbproject@gmail.com'
+	password = 'anymistake1'
+	context = ssl.create_default_context()
+	msg = EmailMessage()
+	msg.set_content(message)
+	msg['Subject'] = subject
+	msg['From'] = sender
+	msg['To'] = receive
+
+	with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+	    server.login(sender, password)
+	    server.send_message(msg)
+
+def sendnewsongemail(title,albumtitle,artist):
+	query = "select username , email from user inner join follow on user.username = follow.follower where following = '"+ artist +"' ;"
+	cursor.execute(query)
+	for i in cursor:
+		messagetext = f'''\
+		Dear {i[0]},
+		An artist you are following, {artist}, has released a new song. The song is called '{title}', from album '{albumtitle}'.
+		We thought you might want to know.
+
+		Best wishes,
+		The fumdbproject admin
+		'''
+		sendemail(i[1], messagetext,"New Song!")
 
 def spec1(cur,a):
 	for i in cur:
@@ -31,7 +64,7 @@ def generatepassword(inputpassword,salt):
 
 def checkpassword(inputpassword,salt,targetpassword):
 	result = generatepassword(inputpassword, salt)
-	return result==targetpassword
+	return result == targetpassword
 
 def playlistexists(title,username): #Check if the playlsit exists
 	query = "select title from playlist where title = '" + title + "' and username = '" + username + "';" #Check if the playlist exists
@@ -623,11 +656,13 @@ def addsongtoalbum():
 		query = "insert into song values('"+ title +"','"+ title +"','"+ artist +"','"+ length +"');"
 		cursor.execute(query)
 		db.commit()
+		sendnewsongemail(title, albumtitle, artist)
 		return "Song added to album successfully" ,201
 
 	query = "insert into song values('"+ title +"','"+ albumtitle +"','"+ artist +"','"+ length +"');"
 	cursor.execute(query)
 	db.commit()
+	sendnewsongemail(title, albumtitle, artist)
 	return "Song added to album successfully" ,201
 
 
@@ -1240,7 +1275,7 @@ def deletereportedsong():
 
 @app.route("/debug")
 def debug():
-	return str(checkpassword("wrong", "$w%}]", "80d01c2f2d9bbac8a2c7b66faf54b181"))
+	pass
 
 if __name__ == "__main__":
 	app.run(host ="localhost" , port =5000,debug=True)
