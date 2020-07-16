@@ -13,7 +13,7 @@ app = Flask(__name__)
 db = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "anymistake",
+        password = "ghon",
         database = "database_project"
     )
 
@@ -63,13 +63,27 @@ def sendapprovedemail(artist):
 		'''
 		sendemail(i[1], messagetext,"Artist Account Approved!")
 
+def sendaccdelemail(username):
+	query = "select email from user where username = '" + username + "';"
+	cursor.execute(query)
+	for i in cursor:
+		messagetext = f'''\
+		Dear {username},
+		Your account was deleted.
+		We thought you might want to know.
+
+		Best wishes,
+		The fumdbproject admin
+		'''
+		sendemail(i[0], messagetext,"Artist Account Approved!")
+
 def senddeletesongemail(artist,songtitle):
-	query = "select  artisticname, email from artist where username = '"+ artist +"';"
+	query = "select  artisticname, email from artist inner join user on user.username = artist.username where user.username = '"+ artist +"';"
 	cursor.execute(query)
 	for i in cursor:
 		messagetext = f'''\
 		Dear {i[0]},
-		Your song has been removed.
+		Your song, '{songtitle}', was reported by some users and has been removed on admin's decision.
 		We thought you might want to know.
 
 		Best wishes,
@@ -1241,6 +1255,7 @@ def unapproveartist():
 @app.route("/deleteaccbyadmin",methods=["POST"])
 def deleteaccbyadmin():
 	username = request.args.get("username")
+	sendaccdelemail(username)
 	query = "delete from user where username = '"+ username +"';"
 	cursor.execute(query)
 	db.commit()
@@ -1294,7 +1309,6 @@ def ignorereportedsong():
 def deletereportedsong():
 	artist = request.args.get("artist")
 	title = request.args.get("title")
-
 	query = "delete from song where artist ='" + artist + "' and title ='" + title + "';"
 	cursor.execute(query)
 	db.commit()
