@@ -63,6 +63,19 @@ def sendapprovedemail(artist):
 		'''
 		sendemail(i[1], messagetext,"Artist Account Approved!")
 
+def senddeletesongemail(artist,songtitle):
+	query = "select  artisticname, email from artist where username = '"+ artist +"';"
+	cursor.execute(query)
+	for i in cursor:
+		messagetext = f'''\
+		Dear {i[0]},
+		Your song has been removed.
+		We thought you might want to know.
+
+		Best wishes,
+		The fumdbproject admin
+		'''
+		sendemail(i[1], messagetext,"Song Removed")
 
 def spec1(cur,a):
 	for i in cur:
@@ -1285,7 +1298,7 @@ def deletereportedsong():
 	query = "delete from song where artist ='" + artist + "' and title ='" + title + "';"
 	cursor.execute(query)
 	db.commit()
-
+	senddeletesongemail(artist, title)
 	return "Song deleted by admin successfully", 200
 
 
