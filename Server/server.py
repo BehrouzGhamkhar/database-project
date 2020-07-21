@@ -29,7 +29,7 @@ def checkwords(myinput):
 	for i in myinput:
 		if(i.isdigit()):
 			hasDigit = True
-		if(i.isalpha):
+		if(i.isalpha()):
 			hasAlpha = True
 
 	return(hasAlpha and hasDigit)
@@ -373,8 +373,9 @@ def addtolist4(cur,a):
 @app.route("/albumsongs")
 def albumsongs():
 	a=[]
+	artist = request.args.get("artist")
 	title = request.args.get("title")
-	query = "select length,artist,title from song where albumtitle ='"+str(title)+"';"
+	query = "select length,artist,title from song where artist = '" + artist + "' and albumtitle ='"+str(title)+"';"
 	cursor.execute(query)
 	addtolist4(cursor, a)
 	jsonObj = json.dumps(a)
